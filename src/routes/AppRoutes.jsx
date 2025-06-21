@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
-import { FormEmpresa } from '../pages/formEmpresa/FormEmpresa'
+import { CadastroEmpresa } from '../pages/empresas/cadastro/CadastroEmpresa'
 
 function AppRoutes() {
   return (
@@ -12,7 +12,7 @@ function AppRoutes() {
 
       <Route
         path='/formulario'
-        element={<FormEmpresa/>}
+        element={<CadastroEmpresa/>}
       />
 
       <Route
