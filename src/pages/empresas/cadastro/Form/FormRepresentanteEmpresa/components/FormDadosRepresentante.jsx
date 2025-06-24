@@ -2,7 +2,7 @@ import { TextField, Box } from '@mui/material'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
 import { useFormContext } from 'react-hook-form';
 
-export const FormDadosRepresentante = ({ dados, setDados, enviar }) => {
+export const FormDadosRepresentante = () => {
   const { register } = useFormContext()
 
   return (

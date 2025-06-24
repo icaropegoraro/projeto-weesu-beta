@@ -3,7 +3,7 @@ import { TextField, Box } from '@mui/material'
 import { useFormContext } from 'react-hook-form'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
 
-export const FormEnderecoRepresentante = ({ endereco, setEndereco }) => {
+export const FormEnderecoRepresentante = () => {
     const { register } = useFormContext()
 
     return (
@@ -11,43 +11,43 @@ export const FormEnderecoRepresentante = ({ endereco, setEndereco }) => {
             <TextField
                 label="CEP"
                 name="cep"
-                {...register("empresa.cep")}
+                {...register("representante.cep")}
             />
 
             <TextField
                 label="Rua"
                 name="street"
-                {...register("empresa.street")}
+                {...register("representante.street")}
             />
 
             <TextField
                 label="Número"
                 name="streetNumber"
-                {...register("empresa.streetNumber")}
+                {...register("representante.streetNumber")}
             />
 
             <TextField
                 label="Complemento"
                 name="complemento"
-                {...register("empresa.complemento")}
+                {...register("representante.complemento")}
             />
 
             <TextField
                 label="Bairro"
                 name="bairro"
-                {...register("empresa.bairro")}
+                {...register("representante.bairro")}
             />
 
             <TextField
                 label="Estado"
                 name="uf"
-                {...register("empresa.uf")}
+                {...register("representante.uf")}
             />
 
             <TextField
                 label="Cidade"
                 name="cidade"
-                {...register("empresa.cidade")}
+                {...register("representante.cidade")}
             />
         </Box>
     )

@@ -3,7 +3,7 @@ import { TextField, Box } from '@mui/material'
 import { useFormContext } from 'react-hook-form'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
 
-export const FormEnderecoEmpresa = ({ endereco, setEndereco }) => {
+export const FormEnderecoEmpresa = () => {
     const { register } = useFormContext()
 
     return (

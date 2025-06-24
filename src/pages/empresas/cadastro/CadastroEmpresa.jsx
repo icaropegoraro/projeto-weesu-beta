@@ -24,7 +24,7 @@ export const CadastroEmpresa = () => {
         )}
 
         {currentStep === 0 && (
-          <Button onClick={nextStep}>Clique aqui</Button>
+          <Button onClick={nextStep}>Próximo</Button>
         )}
 
         {currentStep === 1 && (
