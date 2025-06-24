@@ -1,17 +1,16 @@
 import React from 'react'
-import { useCallback } from 'react'
 import { TextField, Box } from '@mui/material';
 import { maskCNPJ } from '../../../../../../shared/utils/masks/maskCNPJ'; // cria o arquivo e exporta a função
 
-export const FormDadosEmpresa = React.memo(({ dados, setDados, proximo }) => {
-  const handleChange = useCallback((event) => {
+export const FormDadosEmpresa = ({ dados, setDados, proximo }) => {
+  const handleChange = (event) => {
     const { name, value } = event.target
 
     setDados(prevDados => ({
       ...prevDados,
       [name]: name === 'cnpj' ? maskCNPJ(value) : value,
     }))
-  }, [setDados])
+  }
 
 
   return (
@@ -135,4 +134,4 @@ export const FormDadosEmpresa = React.memo(({ dados, setDados, proximo }) => {
       />
     </Box>
   )
-})
+}

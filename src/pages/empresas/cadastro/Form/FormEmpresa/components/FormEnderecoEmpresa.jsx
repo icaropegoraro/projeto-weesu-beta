@@ -1,10 +1,9 @@
 import React from 'react'
 import { TextField, Box } from '@mui/material'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
-import { useCallback } from 'react'
 
-export const FormEnderecoEmpresa = React.memo(({ endereco, setEndereco }) => {
-    const handleChange = useCallback((event) => {
+export const FormEnderecoEmpresa = ({ endereco, setEndereco }) => {
+    const handleChange = (event) => {
         const { name, value } = event.target
 
         setEndereco({
@@ -13,7 +12,7 @@ export const FormEnderecoEmpresa = React.memo(({ endereco, setEndereco }) => {
             name === 'cep' ? maskCEP(value) 
             : value
         })
-    }, [setEndereco])
+    }
 
     return (
         <Box>
@@ -81,4 +80,4 @@ export const FormEnderecoEmpresa = React.memo(({ endereco, setEndereco }) => {
             />
         </Box>
     )
-})
+}
