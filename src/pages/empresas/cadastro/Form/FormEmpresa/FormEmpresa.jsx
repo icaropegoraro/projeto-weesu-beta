@@ -5,7 +5,7 @@ import { FormEnderecoEmpresa } from "./components/FormEnderecoEmpresa"
 import { Box } from "@mui/system"
 import { Button } from '@mui/material'
 
-export const FormEmpresa = React.memo(({ onSubmit, proximo }) => {
+export const FormEmpresa = ({ onSubmit, proximo }) => {
     const [dadosEmpresa, setDadosEmpresa] = useState({
         cnpj: '',
         razaoSocial: '',
@@ -34,24 +34,22 @@ export const FormEmpresa = React.memo(({ onSubmit, proximo }) => {
         cidade: ''
     })
 
-    const setDadosEmpresaCallback = useCallback((newDados) => {
+    const setDadosEmpresaCallback = (newDados) => {
         setDadosEmpresa(prev => ({ ...prev, ...newDados }));
-    }, [])
+    }
 
-    const setEnderecoEmpresaCallback = useCallback((newEndereco) => {
+    const setEnderecoEmpresaCallback = (newEndereco) => {
         setEnderecoEmpresa(prev => ({ ...prev, ...newEndereco }));
-    }, [])
+    }
 
-    const handleAvancar = useCallback(() => {
+    const handleAvancar = () => {
         const dadosCompletos = {
             ...dadosEmpresa,
             ...enderecoEmpresa
         }
         onSubmit(dadosCompletos)
         proximo()
-    }, [dadosEmpresa, enderecoEmpresa, onSubmit, proximo])
-
-
+    }
 
     return(
         <Box>
@@ -71,4 +69,4 @@ export const FormEmpresa = React.memo(({ onSubmit, proximo }) => {
             </Button>
         </Box>
     )
-})
+}

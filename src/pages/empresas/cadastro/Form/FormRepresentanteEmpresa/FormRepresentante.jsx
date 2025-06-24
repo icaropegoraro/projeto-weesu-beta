@@ -14,7 +14,7 @@ export const FormRepresentante = ({ onSubmit, proximo }) => {
         nomeMaeRepresentante: '',
         email: '',
         dataNascimento: ''
-      })
+    })
 
     const [enderecoRepresentante, setEnderecoRepresentante] = useState({
         cep: '',
