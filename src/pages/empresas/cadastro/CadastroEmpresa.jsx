@@ -1,35 +1,28 @@
-import { useState } from 'react';
-import { FormEmpresa } from './components/FormEmpresa';
-import { FormRepresentante } from './components/FormRepresentanteEmpresa';
-import { Box, Button, Typography, Paper } from '@mui/material';
+import React, { useCallback, useState } from 'react';
+import { FormEmpresa } from './Form/FormEmpresa/FormEmpresa';
+import { Typography, Paper, Button, Box } from '@mui/material';
+import { FormRepresentante } from './Form/FormRepresentanteEmpresa/FormRepresentante';
 
-export const CadastroEmpresa = () => {
-  const [stepAtual, setStepAtual] = useState(0);
+export const CadastroEmpresa = React.memo(() => {
+  const [currentStep, setCurrentStep] = useState(0)
 
-  const [dadosEmpresa, setDadosEmpresa] = useState({
-    nomeEmpresa: '',
-    cnpj: '',
-  });
+  const [empresa, setEmpresa] = useState({})
+  const [representante, setRepresentante] = useState ({})
 
-  const [dadosRepresentante, setDadosRepresentante] = useState({
-    nomeRepresentante: '',
-    telefone: '',
-    email: '',
-  });
+  const nextStep = useCallback(() => setCurrentStep((prev) => prev + 1), [])
+  const returnStep = useCallback(() => setCurrentStep((prev) => prev - 1), [])
 
-  const proximoStep = () => setStepAtual((prev) => prev + 1);
-  const voltarStep = () => setStepAtual((prev) => prev - 1);
+  const handleSetEmpresa = useCallback((dados) => {
+    setEmpresa(dados)
+  }, [])
 
-  const handleSubmitFinal = () => {
-    const dadosCompletos = {
-      ...dadosEmpresa,
-      ...dadosRepresentante,
-    };
+  const handleSetRepresentante = useCallback((dados) => {
+    setRepresentante(dados)
+  }, [])
 
-    console.log('Enviando dados:', dadosCompletos);
-
-    // Aqui você pode chamar a API
-  };
+  const handleSubmit = useCallback(() => {
+    console.log('Enviando dados:', {empresa, representante})
+  }, [empresa, representante])
 
   return (
     <Paper elevation={3} sx={{ padding: 4, maxWidth: 600, margin: '40px auto' }}>
@@ -37,18 +30,27 @@ export const CadastroEmpresa = () => {
         Cadastro de Empresa
       </Typography>
 
-      {stepAtual === 0 && (
-        <FormEmpresa dados={dadosEmpresa} setDados={setDadosEmpresa} proximo={proximoStep} />
-      )}
-
-      {stepAtual === 1 && (
-        <FormRepresentante
-          dados={dadosRepresentante}
-          setDados={setDadosRepresentante}
-          voltar={voltarStep}
-          enviar={handleSubmitFinal}
+      {currentStep === 0 && (
+        <FormEmpresa 
+          onSubmit={handleSetEmpresa}
+          proximo={nextStep}
         />
       )}
+
+      {currentStep === 1 && (
+        <FormRepresentante
+          onSubmit={handleSetRepresentante}
+          proximo={handleSubmit}
+        />
+      )}
+
+      {currentStep > 0 && (
+        <Box display="flex" justifyContent="flex-start" mt={2}>
+          <Button variant="outlined" onClick={returnStep}>
+            Voltar
+          </Button>
+        </Box>
+      )}
     </Paper>
-  );
-};
+  )
+})

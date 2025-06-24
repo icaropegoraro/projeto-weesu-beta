@@ -1,0 +1,86 @@
+import { Box, TextField, Button } from '@mui/material'
+import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
+
+export const FormEnderecoRepresentante = ({ endereco, setEndereco, enviar }) => {
+    const handleChange = (event) => {
+        const { name, value } = event.target
+
+        setEndereco({
+              ...endereco,
+            [name]: 
+            name === 'cep' ? maskCEP(value) 
+            : value
+        })
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        enviar()
+    }
+
+    return (
+        <Box component="form" onSubmit={handleSubmit}>
+
+            <TextField
+                fullWidth
+                label="CEP"
+                name="nomeEmpresa"
+                value={endereco.cep}
+                onChange={handleChange}
+                margin="normal"
+            />
+
+            <TextField
+                fullWidth
+                label="Rua"
+                name="street"
+                value={endereco.street}
+                onChange={handleChange}
+                margin="normal"
+            />
+            <TextField
+                fullWidth
+                label="Número"
+                name="streetNumber"
+                value={endereco.streetNumber}
+                onChange={handleChange}
+                margin="normal"
+            />
+            <TextField
+                fullWidth
+                label="Complemento"
+                name="complemento"
+                value={endereco.complemento}
+                onChange={handleChange}
+                margin="normal"
+            />
+            <TextField
+                fullWidth
+                label="Bairro"
+                name="bairro"
+                value={endereco.bairro}
+                onChange={handleChange}
+                margin="normal"
+            />
+            <TextField
+                fullWidth
+                label="Estado"
+                name="uf"
+                value={endereco.uf}
+                onChange={handleChange}
+                margin="normal"
+            />
+            <TextField
+                fullWidth
+                label="Cidade"
+                name="cidade"
+                value={endereco.cidade}
+                onChange={handleChange}
+                margin="normal"
+            />
+            <Button variant="contained" type="submit">
+                Finalizar
+            </Button>
+        </Box>
+    )
+}
