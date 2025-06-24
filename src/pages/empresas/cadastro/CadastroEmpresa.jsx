@@ -3,26 +3,26 @@ import { FormEmpresa } from './Form/FormEmpresa/FormEmpresa';
 import { Typography, Paper, Button, Box } from '@mui/material';
 import { FormRepresentante } from './Form/FormRepresentanteEmpresa/FormRepresentante';
 
-export const CadastroEmpresa = React.memo(() => {
+export const CadastroEmpresa = () => {
   const [currentStep, setCurrentStep] = useState(0)
 
   const [empresa, setEmpresa] = useState({})
   const [representante, setRepresentante] = useState ({})
 
-  const nextStep = useCallback(() => setCurrentStep((prev) => prev + 1), [])
-  const returnStep = useCallback(() => setCurrentStep((prev) => prev - 1), [])
+  const nextStep = () => setCurrentStep((prev) => prev + 1)
+  const returnStep = () => setCurrentStep((prev) => prev - 1)
 
-  const handleSetEmpresa = useCallback((dados) => {
+  const handleSetEmpresa = (dados) => {
     setEmpresa(dados)
-  }, [])
+  }
 
-  const handleSetRepresentante = useCallback((dados) => {
+  const handleSetRepresentante = (dados) => {
     setRepresentante(dados)
-  }, [])
+  }
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     console.log('Enviando dados:', {empresa, representante})
-  }, [empresa, representante])
+  }
 
   return (
     <Paper elevation={3} sx={{ padding: 4, maxWidth: 600, margin: '40px auto' }}>
@@ -53,4 +53,4 @@ export const CadastroEmpresa = React.memo(() => {
       )}
     </Paper>
   )
-})
+}
