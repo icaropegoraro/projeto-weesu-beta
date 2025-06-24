@@ -1,109 +1,65 @@
-import { TextField, Button, Box } from '@mui/material'
+import { TextField, Box } from '@mui/material'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
+import { useFormContext } from 'react-hook-form';
 
 export const FormDadosRepresentante = ({ dados, setDados, enviar }) => {
-  const handleChange = (e) => {
-    const { name, value } = e.target
-
-    setDados({
-          ...dados,
-          [name]: 
-          name === 'telefone' ? maskNumberPhone(value) 
-          : value
-        })
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (!dados.nome || !dados.telefone || !dados.email) {
-      alert('Preencha todos os campos.')
-      return
-    }
-    enviar()
-  };
+  const { register } = useFormContext()
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box>
 
       <TextField
-        fullWidth
         label="CPF"
         name="cpf"
-        value={dados.cpf}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.cpf")}
       />
 
       <TextField
-        fullWidth
         label="Nome"
         name="nome"
-        value={dados.nome}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.nome")}
       />
 
       <TextField
-        fullWidth
         label="Nome social"
         name="nomeSocial"
-        value={dados.nomeSocial}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.nomeSocial")}
       />
 
       <TextField
-        fullWidth
         label="RG"
         name="rg"
-        value={dados.rg}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.rg")}
       />
 
       <TextField
-        fullWidth
         label="UF de emissão"
         name="ufEmissao"
-        value={dados.ufEmissao}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.ufEmissao")}
       />
 
       <TextField
-        fullWidth
         label="Telefone"
         name="telefone"
-        value={dados.telefone}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.telefone")}
       />
 
       <TextField
-        fullWidth
         label="Nome da mãe"
         name="nomeMaeRepresentante"
-        value={dados.nomeMaeRepresentante}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.nomeMaeRepresentante")}
       />
 
       <TextField
-        fullWidth
         label="Email"
         name="email"
-        value={dados.email}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.email")}
       />
 
       <TextField
-        fullWidth
         label="Data de nascimento"
         name="dataNascimento"
-        value={dados.dataNascimento}
-        onChange={handleChange}
-        margin="normal"
+        {...register("representante.dataNascimento")}
       />
     </Box>
   );

@@ -1,136 +1,89 @@
-import React from 'react'
-import { TextField, Box } from '@mui/material';
-import { maskCNPJ } from '../../../../../../shared/utils/masks/maskCNPJ'; // cria o arquivo e exporta a função
+import { useFormContext } from "react-hook-form"
+import { TextField, Box } from "@mui/material"
 
-export const FormDadosEmpresa = ({ dados, setDados, proximo }) => {
-  const handleChange = (event) => {
-    const { name, value } = event.target
-
-    setDados(prevDados => ({
-      ...prevDados,
-      [name]: name === 'cnpj' ? maskCNPJ(value) : value,
-    }))
-  }
+export const FormDadosEmpresa = () => {
+  const { register } = useFormContext()
 
 
   return (
     <Box>
-      
       <TextField
-        fullWidth
         label="CNPJ"
         name="cnpj"
-        value={dados.cnpj}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.cnpj")}
       />
 
       <TextField
-        fullWidth
         label="Razão Social"
         name="razaoSocial"
-        value={dados.razaoSocial}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.razaoSocial")}
       />
 
       <TextField
-        fullWidth
         label="Nome Fantasia"
         name="nomeFantasia"
-        value={dados.nomeFantasia}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.nomeFantasia")}
+
       />
       
       <TextField
-        fullWidth
         label="Email"
         name="email"
-        value={dados.email}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.email")}
       />
 
       <TextField
-        fullWidth
         label="Telefone"
         name="telefone"
-        value={dados.telefone}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.telefone")}
       />
 
       <TextField
-        fullWidth
         label="Quantidade de Clientes"
         name="qtdClientes"
-        value={dados.qtdClientes}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.qtdClientes")}
       />
 
       <TextField
-        fullWidth
         label="Vencimento"
         name="vencimento"
-        value={dados.vencimento}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.vencimento")}
       />
 
       <TextField
-        fullWidth
         label="Data de Abertura"
         name="dataAbertura"
-        value={dados.dataAbertura}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.dataAbertura")}
       />
 
       <TextField
-        fullWidth
         label="CNAE"
         name="cnae"
-        value={dados.cnae}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.cnae")}
       />
 
       <TextField
-        fullWidth
         label="Faturamento"
         name="faturamento"
-        value={dados.faturamento}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.faturamento")}
       />
 
       <TextField
-        fullWidth
         label="Tipo de Atuação"
         name="tipoAtuacao"
-        value={dados.tipoAtuacao}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.tipoAtuacao")}
       />
 
       <TextField
-        fullWidth
         label="Regime Tributário"
         name="regimeTributario"
-        value={dados.regimeTributario}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.regimeTributario")}
       />
 
       <TextField
-        fullWidth
         label="Formato de constituição"
         name="formatoConstituicao"
-        value={dados.formatoConstituicao}
-        onChange={handleChange}
-        margin="normal"
+        {...register("empresa.formatoConstituicao")}
       />
     </Box>
   )

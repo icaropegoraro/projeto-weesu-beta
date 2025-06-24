@@ -1,56 +1,44 @@
-import React, { useCallback, useState } from 'react';
-import { FormEmpresa } from './Form/FormEmpresa/FormEmpresa';
-import { Typography, Paper, Button, Box } from '@mui/material';
-import { FormRepresentante } from './Form/FormRepresentanteEmpresa/FormRepresentante';
+import { useForm, FormProvider } from "react-hook-form"
+import { useState } from "react"
+import { Button, Box } from "@mui/material"
+import { FormRepresentante } from "./Form/FormRepresentanteEmpresa/FormRepresentante"
+import { FormEmpresa } from "./Form/FormEmpresa/FormEmpresa"
 
 export const CadastroEmpresa = () => {
-  const [currentStep, setCurrentStep] = useState(0)
+  const methods = useForm()
 
-  const [empresa, setEmpresa] = useState({})
-  const [representante, setRepresentante] = useState ({})
+  const [currentStep, setCurrentStep] = useState(0)
 
   const nextStep = () => setCurrentStep((prev) => prev + 1)
   const returnStep = () => setCurrentStep((prev) => prev - 1)
 
-  const handleSetEmpresa = (dados) => {
-    setEmpresa(dados)
-  }
-
-  const handleSetRepresentante = (dados) => {
-    setRepresentante(dados)
-  }
-
-  const handleSubmit = () => {
-    console.log('Enviando dados:', {empresa, representante})
+  const onSubmit = (data) => {
+    console.log("Dados enviados:", data)
   }
 
   return (
-    <Paper elevation={3} sx={{ padding: 4, maxWidth: 600, margin: '40px auto' }}>
-      <Typography variant="h5" gutterBottom>
-        Cadastro de Empresa
-      </Typography>
+    <FormProvider {...methods}>
+      <Box component="form" onSubmit={methods.handleSubmit(onSubmit)} sx={{ p: 3 }}>
+        {currentStep === 0 && (
+          <FormEmpresa />
+        )}
 
-      {currentStep === 0 && (
-        <FormEmpresa 
-          onSubmit={handleSetEmpresa}
-          proximo={nextStep}
-        />
-      )}
+        {currentStep === 0 && (
+          <Button onClick={nextStep}>Clique aqui</Button>
+        )}
 
-      {currentStep === 1 && (
-        <FormRepresentante
-          onSubmit={handleSetRepresentante}
-          proximo={handleSubmit}
-        />
-      )}
+        {currentStep === 1 && (
+          <FormRepresentante />
+        )}
 
-      {currentStep > 0 && (
-        <Box display="flex" justifyContent="flex-start" mt={2}>
-          <Button variant="outlined" onClick={returnStep}>
-            Voltar
-          </Button>
-        </Box>
-      )}
-    </Paper>
+        {currentStep > 0 && (
+          <Box display="flex" justifyContent="flex-start" mt={2}>
+            <Button variant="outlined" onClick={returnStep}>
+              Voltar
+            </Button>
+          </Box>
+        )}
+      </Box>
+    </FormProvider>
   )
 }
