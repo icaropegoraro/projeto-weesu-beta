@@ -6,9 +6,10 @@ export const FormDadosEmpresa = () => {
 
 
   return (
-    <Box>
-      <Grid>
+    <Grid container spacing={2}>
+      <Grid size={{xs: 12, sm: 6, md: 4, lg: 4}}>
         <TextField
+          fullWidth
           label="CNPJ"
           name="cnpj"
           {...register("empresa.cnpj")}
@@ -110,6 +111,6 @@ export const FormDadosEmpresa = () => {
           {...register("empresa.formatoConstituicao")}
         />
       </Grid>
-    </Box>
+    </Grid>
   )
 }
