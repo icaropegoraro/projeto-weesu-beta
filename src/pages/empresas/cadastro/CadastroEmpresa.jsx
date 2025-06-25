@@ -11,8 +11,8 @@ export const CadastroEmpresa = () => {
 
   const steps = ['Cadastro da empresa', 'Cadastro do representante']
 
-  const nextStep = () => setCurrentStep((atual) => atual + 1)
-  const returnStep = () => setCurrentStep((atual) => atual - 1)
+  const nextStep = () => setCurrentStep((current) => current + 1)
+  const returnStep = () => setCurrentStep((current) => current - 1)
 
   const stepAnterior = currentStep - 1
 
