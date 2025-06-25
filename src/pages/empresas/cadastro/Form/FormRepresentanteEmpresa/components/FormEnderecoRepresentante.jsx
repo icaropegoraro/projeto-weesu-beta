@@ -1,5 +1,4 @@
-import React from 'react'
-import { TextField, Box } from '@mui/material'
+import { TextField, Box, Grid } from '@mui/material'
 import { useFormContext } from 'react-hook-form'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
 
@@ -8,47 +7,61 @@ export const FormEnderecoRepresentante = () => {
 
     return (
         <Box>
-            <TextField
+            <Grid>
+                <TextField
                 label="CEP"
                 name="cep"
                 {...register("representante.cep")}
-            />
+                />
+            </Grid>
 
-            <TextField
+            <Grid>
+                <TextField
                 label="Rua"
                 name="street"
                 {...register("representante.street")}
-            />
+                />
+            </Grid>
 
-            <TextField
+            <Grid>
+                <TextField
                 label="Número"
                 name="streetNumber"
                 {...register("representante.streetNumber")}
-            />
+                />
+            </Grid>
 
-            <TextField
+            <Grid>
+                <TextField
                 label="Complemento"
                 name="complemento"
                 {...register("representante.complemento")}
-            />
+                />
+            </Grid>
 
-            <TextField
+            <Grid>
+                <TextField
                 label="Bairro"
                 name="bairro"
                 {...register("representante.bairro")}
-            />
+                />
+            </Grid>
 
-            <TextField
+            <Grid>
+                <TextField
                 label="Estado"
                 name="uf"
                 {...register("representante.uf")}
-            />
+                />
+            </Grid>
 
-            <TextField
+            <Grid>
+                <TextField
                 label="Cidade"
                 name="cidade"
                 {...register("representante.cidade")}
-            />
+                />
+            </Grid>
         </Box>
     )
 }

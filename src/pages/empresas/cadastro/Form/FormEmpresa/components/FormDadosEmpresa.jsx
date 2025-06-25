@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form"
-import { TextField, Box } from "@mui/material"
+import { TextField, Box, Grid } from "@mui/material"
 
 export const FormDadosEmpresa = () => {
   const { register } = useFormContext()
@@ -7,84 +7,109 @@ export const FormDadosEmpresa = () => {
 
   return (
     <Box>
-      <TextField
-        label="CNPJ"
-        name="cnpj"
-        {...register("empresa.cnpj")}
-      />
+      <Grid>
+        <TextField
+          label="CNPJ"
+          name="cnpj"
+          {...register("empresa.cnpj")}
+        />
+      </Grid>
 
-      <TextField
-        label="Razão Social"
-        name="razaoSocial"
-        {...register("empresa.razaoSocial")}
-      />
+      <Grid>
+        <TextField
+          label="Razão Social"
+          name="razaoSocial"
+          {...register("empresa.razaoSocial")}
+        />
+      </Grid>
 
-      <TextField
-        label="Nome Fantasia"
-        name="nomeFantasia"
-        {...register("empresa.nomeFantasia")}
+      <Grid>
+        <TextField
+          label="Nome Fantasia"
+          name="nomeFantasia"
+          {...register("empresa.nomeFantasia")}
+        />
+      </Grid>
 
-      />
-      
-      <TextField
-        label="Email"
-        name="email"
-        {...register("empresa.email")}
-      />
+      <Grid>
+        <TextField
+          label="Email"
+          name="email"
+          {...register("empresa.email")}
+        />
+      </Grid>
 
-      <TextField
-        label="Telefone"
-        name="telefone"
-        {...register("empresa.telefone")}
-      />
+      <Grid>
+        <TextField
+          label="Telefone"
+          name="telefone"
+          {...register("empresa.telefone")}
+        />
+      </Grid>
 
-      <TextField
-        label="Quantidade de Clientes"
-        name="qtdClientes"
-        {...register("empresa.qtdClientes")}
-      />
+      <Grid>
+        <TextField
+          label="Quantidade de Clientes"
+          name="qtdClientes"
+          {...register("empresa.qtdClientes")}
+        />
+      </Grid>
 
-      <TextField
-        label="Vencimento"
-        name="vencimento"
-        {...register("empresa.vencimento")}
-      />
+      <Grid>
+        <TextField
+          label="Vencimento"
+          name="vencimento"
+          {...register("empresa.vencimento")}
+        />
+      </Grid>
 
-      <TextField
-        label="Data de Abertura"
-        name="dataAbertura"
-        {...register("empresa.dataAbertura")}
-      />
+      <Grid>
+        <TextField
+          label="Data de Abertura"
+          name="dataAbertura"
+          {...register("empresa.dataAbertura")}
+        />
+      </Grid>
 
-      <TextField
-        label="CNAE"
-        name="cnae"
-        {...register("empresa.cnae")}
-      />
+      <Grid>
+        <TextField
+          label="CNAE"
+          name="cnae"
+          {...register("empresa.cnae")}
+        />
+      </Grid>
 
-      <TextField
-        label="Faturamento"
-        name="faturamento"
-        {...register("empresa.faturamento")}
-      />
+      <Grid>
+        <TextField
+          label="Faturamento"
+          name="faturamento"
+          {...register("empresa.faturamento")}
+        />
+      </Grid>
 
-      <TextField
-        label="Tipo de Atuação"
-        name="tipoAtuacao"
-        {...register("empresa.tipoAtuacao")}
-      />
+      <Grid>
+        <TextField
+          label="Tipo de Atuação"
+          name="tipoAtuacao"
+          {...register("empresa.tipoAtuacao")}
+        />
+      </Grid>
 
-      <TextField
-        label="Regime Tributário"
-        name="regimeTributario"
-        {...register("empresa.regimeTributario")}
-      />
+      <Grid>
+        <TextField
+          label="Regime Tributário"
+          name="regimeTributario"
+          {...register("empresa.regimeTributario")}
+        />
+      </Grid>
 
-      <TextField
-        label="Formato de constituição"
-        name="formatoConstituicao"
-        {...register("empresa.formatoConstituicao")}
-      />
+      <Grid>
+        <TextField
+          label="Formato de constituição"
+          name="formatoConstituicao"
+          {...register("empresa.formatoConstituicao")}
+        />
+      </Grid>
     </Box>
   )
 }
