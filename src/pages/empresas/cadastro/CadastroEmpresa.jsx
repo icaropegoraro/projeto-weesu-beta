@@ -1,6 +1,6 @@
-import { useForm, FormProvider } from "react-hook-form"
+import { useForm, FormProvider } from 'react-hook-form'
 import { useState } from "react"
-import { Button, Box } from "@mui/material"
+import { Button, Box, Stepper, StepButton, Step } from "@mui/material"
 import { FormRepresentante } from "./Form/FormRepresentanteEmpresa/FormRepresentante"
 import { FormEmpresa } from "./Form/FormEmpresa/FormEmpresa"
 
@@ -9,8 +9,12 @@ export const CadastroEmpresa = () => {
 
   const [currentStep, setCurrentStep] = useState(0)
 
-  const nextStep = () => setCurrentStep((prev) => prev + 1)
-  const returnStep = () => setCurrentStep((prev) => prev - 1)
+  const steps = ['Cadastro da empresa', 'Cadastro do representante']
+
+  const nextStep = () => setCurrentStep((atual) => atual + 1)
+  const returnStep = () => setCurrentStep((atual) => atual - 1)
+
+  const stepAnterior = currentStep - 1
 
   const onSubmit = (data) => {
     console.log("Dados enviados:", data)
@@ -19,25 +23,51 @@ export const CadastroEmpresa = () => {
   return (
     <FormProvider {...methods}>
       <Box component="form" onSubmit={methods.handleSubmit(onSubmit)} sx={{ p: 3 }}>
-        {currentStep === 0 && (
-          <FormEmpresa />
-        )}
+        <Stepper 
+          activeStep={currentStep} 
+          alternativeLabel
+          nonLinear
+        >
 
-        {currentStep === 0 && (
-          <Button onClick={nextStep}>Próximo</Button>
-        )}
+          {steps.map((label, index) => (
+          <Step 
+            key={label}
+          >
+            <StepButton>{label}</StepButton>
+          </Step>
+          ))}
 
-        {currentStep === 1 && (
-          <FormRepresentante />
-        )}
+        </Stepper>
+          {currentStep === 0 && (
+            <FormEmpresa />
+          )}
 
-        {currentStep > 0 && (
-          <Box display="flex" justifyContent="flex-start" mt={2}>
-            <Button variant="outlined" onClick={returnStep}>
-              Voltar
+          {currentStep === 1 && (
+            <FormRepresentante />
+          )}
+
+          <Button 
+            variant="outlined" 
+            onClick={returnStep} 
+            disabled={currentStep === 0}>
+            Voltar
+          </Button>
+          {currentStep === 0 ? (
+            <Button 
+              variant="outlined" 
+              onClick={nextStep}
+            >
+              Próximo
             </Button>
-          </Box>
-        )}
+           ) : (
+            <Button 
+              variant="outlined" 
+              onClick={onSubmit()}
+            >
+              Finalizar
+            </Button>
+          )}
+        
       </Box>
     </FormProvider>
   )

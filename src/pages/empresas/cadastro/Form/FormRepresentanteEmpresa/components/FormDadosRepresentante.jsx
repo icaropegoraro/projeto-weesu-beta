@@ -1,13 +1,12 @@
 import { TextField, Box } from '@mui/material'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
-import { useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form'
 
 export const FormDadosRepresentante = () => {
   const { register } = useFormContext()
 
   return (
     <Box>
-
       <TextField
         label="CPF"
         name="cpf"
