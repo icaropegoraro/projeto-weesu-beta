@@ -30,7 +30,7 @@ export const CadastroEmpresa = () => {
   return (
     <Grid container spacing={2}>
       <FormProvider {...methods}>
-        <Grid size={{xs: 12}} gap={'10px'}>
+        <Grid size={{xs: 12}} marginTop={'10px'}>
           <Stepper 
             activeStep={currentStep} 
             alternativeLabel
@@ -46,20 +46,22 @@ export const CadastroEmpresa = () => {
           
         {stepComponents[currentStep]}
 
-        <Button 
-          variant="outlined" 
-          onClick={returnStep} 
-          disabled={isFirstStep}
-        >
-          Voltar
-        </Button>
+        <Grid container size={{xs: 12}} justifyContent={'center'} spacing={2}> 
+          <Button 
+            variant="outlined" 
+            onClick={returnStep} 
+            disabled={isFirstStep}
+          >
+            Voltar
+          </Button>
 
-        <Button 
-          variant="outlined" 
-          onClick={isLastStep ? methods.handleSubmit(onSubmit) : nextStep}
-        >
-          {isLastStep ? 'Finalizar' : 'Próximo'}
-        </Button>
+          <Button 
+            variant="outlined" 
+            onClick={isLastStep ? methods.handleSubmit(onSubmit) : nextStep}
+          >
+            {isLastStep ? 'Finalizar' : 'Próximo'}
+          </Button>
+        </Grid> 
       </FormProvider>
     </Grid>
   )

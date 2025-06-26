@@ -1,4 +1,4 @@
-import { Box, Typography, Grid } from "@mui/material"
+import { Typography, Grid } from "@mui/material"
 import { FormDadosEmpresa } from "./components/FormDadosEmpresa"
 import { FormEnderecoEmpresa } from "./components/FormEnderecoEmpresa"
 

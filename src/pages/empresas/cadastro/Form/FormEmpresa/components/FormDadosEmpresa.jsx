@@ -1,9 +1,9 @@
 import { useFormContext } from "react-hook-form"
-import { TextField, Box, Grid } from "@mui/material"
+import { TextField, Grid } from "@mui/material"
+import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
 
 export const FormDadosEmpresa = () => {
   const { register } = useFormContext()
-
 
   return (
     <Grid container spacing={2}>
@@ -13,6 +13,10 @@ export const FormDadosEmpresa = () => {
           label="CNPJ"
           name="cnpj"
           {...register("empresa.dados.cnpj")}
+          onChange={(event) => {
+            const {value} = event.target
+            event.target.value = maskCNPJ(value)
+          }}
         />
       </Grid>
 
