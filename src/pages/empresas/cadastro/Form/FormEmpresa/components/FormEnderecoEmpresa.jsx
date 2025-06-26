@@ -12,63 +12,63 @@ export const FormEnderecoEmpresa = () => {
                     label="CEP"
                     name="cep"
                     fullWidth
-                    {...register("empresa.cep")}
+                    {...register("empresa.endereco.cep")}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+            <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                     label="Rua"
                     name="street"
                     fullWidth
-                    {...register("empresa.street")}
+                    {...register("empresa.endereco.street")}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Número"
                     name="streetNumber"
                     fullWidth
-                    {...register("empresa.streetNumber")}
+                    {...register("empresa.endereco.streetNumber")}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Complemento"
                     name="complemento"
                     fullWidth
-                    {...register("empresa.complemento")}
+                    {...register("empresa.endereco.complemento")}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Bairro"
                     name="bairro"
                     fullWidth
-                    {...register("empresa.bairro")}
+                    {...register("empresa.endereco.bairro")}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Estado"
                     name="uf"
                     fullWidth
-                    {...register("empresa.uf")}
+                    {...register("empresa.endereco.uf")}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Cidade"
                     name="cidade"
                     fullWidth
-                    {...register("empresa.cidade")}
+                    {...register("empresa.endereco.cidade")}
                 />
-                </Grid>
+            </Grid>
         </Grid>
     )
 }

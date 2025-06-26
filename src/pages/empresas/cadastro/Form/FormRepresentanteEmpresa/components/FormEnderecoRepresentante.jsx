@@ -6,62 +6,69 @@ export const FormEnderecoRepresentante = () => {
     const { register } = useFormContext()
 
     return (
-        <Box>
-            <Grid>
+        <Grid container spacing={2}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
-                label="CEP"
-                name="cep"
-                {...register("representante.cep")}
+                    fullWidth
+                    label="CEP"
+                    name="cep"
+                    {...register("representante.endereco.cep")}
+                />
+             </Grid>
+
+            <Grid size={{ xs: 12, md: 6 }}>
+                <TextField
+                    fullWidth
+                    label="Rua"
+                    name="street"
+                    {...register("representante.endereco.street")}
                 />
             </Grid>
 
-            <Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
-                label="Rua"
-                name="street"
-                {...register("representante.street")}
+                    fullWidth
+                    label="Número"
+                    name="streetNumber"
+                    {...register("representante.endereco.streetNumber")}
                 />
             </Grid>
 
-            <Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
-                label="Número"
-                name="streetNumber"
-                {...register("representante.streetNumber")}
+                    fullWidth
+                    label="Complemento"
+                    name="complemento"
+                    {...register("representante.endereco.complemento")}
                 />
             </Grid>
 
-            <Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
-                label="Complemento"
-                name="complemento"
-                {...register("representante.complemento")}
+                    fullWidth
+                    label="Bairro"
+                    name="bairro"
+                    {...register("representante.endereco.bairro")}
                 />
             </Grid>
 
-            <Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
-                label="Bairro"
-                name="bairro"
-                {...register("representante.bairro")}
+                    fullWidth
+                    label="Estado"
+                    name="uf"
+                    {...register("representante.endereco.uf")}
                 />
             </Grid>
 
-            <Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
-                label="Estado"
-                name="uf"
-                {...register("representante.uf")}
+                    fullWidth
+                    label="Cidade"
+                    name="cidade"
+                    {...register("representante.endereco.cidade")}
                 />
             </Grid>
-
-            <Grid>
-                <TextField
-                label="Cidade"
-                name="cidade"
-                {...register("representante.cidade")}
-                />
-            </Grid>
-        </Box>
+        </Grid>
     )
 }

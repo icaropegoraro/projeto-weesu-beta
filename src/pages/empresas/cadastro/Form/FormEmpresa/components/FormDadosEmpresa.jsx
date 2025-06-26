@@ -12,7 +12,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="CNPJ"
           name="cnpj"
-          {...register("empresa.cnpj")}
+          {...register("empresa.dados.cnpj")}
         />
       </Grid>
 
@@ -21,7 +21,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Razão Social"
           name="razaoSocial"
-          {...register("empresa.razaoSocial")}
+          {...register("empresa.dados.razaoSocial")}
         />
       </Grid>
 
@@ -30,7 +30,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Nome Fantasia"
           name="nomeFantasia"
-          {...register("empresa.nomeFantasia")}
+          {...register("empresa.dados.nomeFantasia")}
         />
       </Grid>
 
@@ -39,7 +39,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Inscrição Estadual"
           name="inscricaoEstadual"
-          {...register("empresa.inscricaoEstadual")}
+          {...register("empresa.dados.inscricaoEstadual")}
         />
       </Grid>
 
@@ -48,7 +48,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Email"
           name="email"
-          {...register("empresa.email")}
+          {...register("empresa.dados.email")}
         />
       </Grid>
 
@@ -57,7 +57,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Telefone"
           name="telefone"
-          {...register("empresa.telefone")}
+          {...register("empresa.dados.telefone")}
         />
       </Grid>
 
@@ -66,7 +66,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Quantidade de Clientes"
           name="qtdClientes"
-          {...register("empresa.qtdClientes")}
+          {...register("empresa.dados.qtdClientes")}
         />
       </Grid>
 
@@ -75,7 +75,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Vencimento"
           name="vencimento"
-          {...register("empresa.vencimento")}
+          {...register("empresa.dados.vencimento")}
         />
       </Grid>
 
@@ -84,7 +84,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Data de Abertura"
           name="dataAbertura"
-          {...register("empresa.dataAbertura")}
+          {...register("empresa.dados.dataAbertura")}
         />
       </Grid>
 
@@ -93,7 +93,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="CNAE"
           name="cnae"
-          {...register("empresa.cnae")}
+          {...register("empresa.dados.cnae")}
         />
       </Grid>
 
@@ -102,7 +102,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Faturamento"
           name="faturamento"
-          {...register("empresa.faturamento")}
+          {...register("empresa.dados.faturamento")}
         />
       </Grid>
 
@@ -111,7 +111,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Tipo de Atuação"
           name="tipoAtuacao"
-          {...register("empresa.tipoAtuacao")}
+          {...register("empresa.dados.tipoAtuacao")}
         />
       </Grid>
 
@@ -120,7 +120,7 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Regime Tributário"
           name="regimeTributario"
-          {...register("empresa.regimeTributario")}
+          {...register("empresa.dados.regimeTributario")}
         />
       </Grid>
 
@@ -129,9 +129,10 @@ export const FormDadosEmpresa = () => {
           fullWidth
           label="Formato de constituição"
           name="formatoConstituicao"
-          {...register("empresa.formatoConstituicao")}
+          {...register("empresa.dados.formatoConstituicao")}
         />
       </Grid>
+
     </Grid>
   )
 }

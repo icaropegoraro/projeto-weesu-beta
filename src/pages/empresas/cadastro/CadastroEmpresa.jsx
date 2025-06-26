@@ -27,7 +27,6 @@ export const CadastroEmpresa = () => {
   return (
     <Grid container spacing={2}>
       <FormProvider {...methods}>
-        <Box component="form" onSubmit={methods.handleSubmit(onSubmit)} sx={{ p: 3 }}>
           <Stepper 
             activeStep={currentStep} 
             alternativeLabel
@@ -60,13 +59,11 @@ export const CadastroEmpresa = () => {
             ) : (
               <Button 
                 variant="outlined" 
-                onClick={onSubmit()}
+                onClick={methods.handleSubmit(onSubmit)}
               >
                 Finalizar
               </Button>
             )}
-          
-        </Box>
       </FormProvider>
     </Grid>
   )
