@@ -20,6 +20,9 @@ export const CadastroEmpresa = () => {
       <FormRepresentante key="representante" onBack={returnStep} />
     ]
 
+  const isFirstStep = (currentStep === 0)
+  const isLastStep = (currentStep === steps.length - 1)
+
   const onSubmit = (data) => {
     console.log("Dados enviados:", data)
   }
@@ -27,43 +30,36 @@ export const CadastroEmpresa = () => {
   return (
     <Grid container spacing={2}>
       <FormProvider {...methods}>
+        <Grid size={{xs: 12}} gap={'10px'}>
           <Stepper 
             activeStep={currentStep} 
             alternativeLabel
             nonLinear
           >
-
             {steps.map((label, stepNumber) => (
               <Step key={label}>
                 <StepButton onClick={() => goToStep(stepNumber)}>{label}</StepButton>
               </Step>
             ))}
-
           </Stepper>
-            
-          {stepComponents[currentStep]}
+        </Grid>
+          
+        {stepComponents[currentStep]}
 
-            <Button 
-              variant="outlined" 
-              onClick={returnStep} 
-              disabled={currentStep === 0}>
-              Voltar
-            </Button>
-            {currentStep === 0 ? (
-              <Button 
-                variant="outlined" 
-                onClick={nextStep}
-              >
-                Próximo
-              </Button>
-            ) : (
-              <Button 
-                variant="outlined" 
-                onClick={methods.handleSubmit(onSubmit)}
-              >
-                Finalizar
-              </Button>
-            )}
+        <Button 
+          variant="outlined" 
+          onClick={returnStep} 
+          disabled={isFirstStep}
+        >
+          Voltar
+        </Button>
+
+        <Button 
+          variant="outlined" 
+          onClick={isLastStep ? methods.handleSubmit(onSubmit) : nextStep}
+        >
+          {isLastStep ? 'Finalizar' : 'Próximo'}
+        </Button>
       </FormProvider>
     </Grid>
   )
