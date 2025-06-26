@@ -1,13 +1,14 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, Grid } from "@mui/material"
 import { FormDadosEmpresa } from "./components/FormDadosEmpresa"
 import { FormEnderecoEmpresa } from "./components/FormEnderecoEmpresa"
 
 export const FormEmpresa = () => {
     return (
-        <Box sx={{ mb: 3 }}>
+        <Grid container spacing={2}>
             <Typography variant="h5" gutterBottom>Dados da Empresa</Typography>
             <FormDadosEmpresa />
+            <Typography variant="h5" gutterBottom>Dados da Empresa</Typography>
             <FormEnderecoEmpresa />
-        </Box>
+        </Grid>
     )
 }

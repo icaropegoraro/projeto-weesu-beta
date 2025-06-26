@@ -6,62 +6,69 @@ export const FormEnderecoEmpresa = () => {
     const { register } = useFormContext()
 
     return (
-        <Box>
-            <Grid>
+        <Grid container spacing={2}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="CEP"
                     name="cep"
+                    fullWidth
                     {...register("empresa.cep")}
                 />
-            </Grid>
+                </Grid>
 
-            <Grid>
+                <Grid size={{ xs: 12, md: 6 }}>
                 <TextField
                     label="Rua"
                     name="street"
+                    fullWidth
                     {...register("empresa.street")}
                 />
-            </Grid>
+                </Grid>
 
-            <Grid>
+                <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Número"
                     name="streetNumber"
+                    fullWidth
                     {...register("empresa.streetNumber")}
                 />
-            </Grid>
+                </Grid>
 
-            <Grid>
+                <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Complemento"
                     name="complemento"
+                    fullWidth
                     {...register("empresa.complemento")}
                 />
-            </Grid>
+                </Grid>
 
-            <Grid>
+                <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Bairro"
                     name="bairro"
+                    fullWidth
                     {...register("empresa.bairro")}
                 />
-            </Grid>
+                </Grid>
 
-            <Grid>
+                <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Estado"
                     name="uf"
+                    fullWidth
                     {...register("empresa.uf")}
                 />
-            </Grid>
+                </Grid>
 
-            <Grid>
+                <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                     label="Cidade"
                     name="cidade"
+                    fullWidth
                     {...register("empresa.cidade")}
                 />
-            </Grid>
-        </Box>
+                </Grid>
+        </Grid>
     )
 }
