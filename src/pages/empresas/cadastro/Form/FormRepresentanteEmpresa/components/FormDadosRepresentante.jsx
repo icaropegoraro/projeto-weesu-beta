@@ -7,15 +7,6 @@ export const FormDadosRepresentante = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid size={{ xs: 12, md: 3 }}>
-        <TextField
-          fullWidth
-          label="CPF"
-          name="cpf"
-          {...register("representante.cpf")}
-        />
-      </Grid>
-
       <Grid size={{ xs: 12, md: 6 }}>
         <TextField
           fullWidth
@@ -34,7 +25,7 @@ export const FormDadosRepresentante = () => {
         />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 6 }}>
+      <Grid size={{ xs: 12, md: 3 }}>
         <TextField
           fullWidth
           label="RG"
@@ -43,21 +34,23 @@ export const FormDadosRepresentante = () => {
         />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 6 }}>
+      <Grid size={{ xs: 12, md: 3 }}>
         <TextField
           fullWidth
-          label="UF de emissão"
-          name="ufEmissao"
-          {...register("representante.ufEmissao")}
+          label="CPF"
+          name="cpf"
+          {...register("representante.cpf")}
         />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 6 }}>
+      
+
+      <Grid size={{ xs: 12, md: 3 }}>
         <TextField
           fullWidth
-          label="Telefone"
-          name="telefone"
-          {...register("representante.telefone")}
+          label="Data de nascimento"
+          name="dataNascimento"
+          {...register("representante.dataNascimento")}
         />
       </Grid>
 
@@ -70,6 +63,15 @@ export const FormDadosRepresentante = () => {
         />
       </Grid>
 
+      <Grid size={{ xs: 12, md: 3 }}>
+        <TextField
+          fullWidth
+          label="UF de emissão"
+          name="ufEmissao"
+          {...register("representante.ufEmissao")}
+        />
+      </Grid>
+
       <Grid size={{ xs: 12, md: 6 }}>
         <TextField
           fullWidth
@@ -79,12 +81,12 @@ export const FormDadosRepresentante = () => {
         />
       </Grid>
 
-      <Grid size={{ xs: 12, md: 6 }}>
+      <Grid size={{ xs: 12, md: 3 }}>
         <TextField
           fullWidth
-          label="Data de nascimento"
-          name="dataNascimento"
-          {...register("representante.dataNascimento")}
+          label="Telefone"
+          name="telefone"
+          {...register("representante.telefone")}
         />
       </Grid>
     </Grid>
