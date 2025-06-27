@@ -1,74 +1,125 @@
-import { TextField, Box, Grid } from '@mui/material'
-import { useFormContext } from 'react-hook-form'
+import { TextField, Grid } from '@mui/material'
+import { useFormContext, Controller } from 'react-hook-form'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
+import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 
 export const FormEnderecoRepresentante = () => {
-    const { register } = useFormContext()
+    const { control } = useFormContext()
 
     return (
         <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 3 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.cep"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="CEP"
                     name="cep"
-                    {...register("representante.endereco.cep")}
+                    value={value || ''}
+                    onChange={(event) => maskHandler(maskCEP)(event, onChange)}
+                    />
+                )}
                 />
-             </Grid>
+            </Grid>
 
             <Grid size={{ xs: 12, md: 6 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.street"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="Rua"
                     name="street"
-                    {...register("representante.endereco.street")}
+                    value={value || ''}
+                    onChange={onChange}
+                    />
+                )}
                 />
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.streetNumber"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="Número"
                     name="streetNumber"
-                    {...register("representante.endereco.streetNumber")}
+                    value={value || ''}
+                    onChange={onChange}
+                    />
+                )}
                 />
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.complemento"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="Complemento"
                     name="complemento"
-                    {...register("representante.endereco.complemento")}
+                    value={value || ''}
+                    onChange={onChange}
+                    />
+                )}
                 />
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.bairro"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="Bairro"
                     name="bairro"
-                    {...register("representante.endereco.bairro")}
+                    value={value || ''}
+                    onChange={onChange}
+                    />
+                )}
                 />
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.uf"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="Estado"
                     name="uf"
-                    {...register("representante.endereco.uf")}
+                    value={value || ''}
+                    onChange={onChange}
+                    />
+                )}
                 />
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-                <TextField
+                <Controller
+                name="representante.endereco.cidade"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                    <TextField
                     fullWidth
                     label="Cidade"
                     name="cidade"
-                    {...register("representante.endereco.cidade")}
+                    value={value || ''}
+                    onChange={onChange}
+                    />
+                )}
                 />
             </Grid>
         </Grid>
+
     )
 }

@@ -3,6 +3,7 @@ import { TextField, Grid } from "@mui/material"
 import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
 import { maskNumberPhone } from "../../../../../../shared/utils/masks/maskNumberPhone"
 import { maskHandler } from "../../../../../../shared/utils/maskHandler"
+import { maskCNAE } from "../../../../../../shared/utils/masks/maskCNAE"
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
@@ -163,7 +164,7 @@ export const FormDadosEmpresa = () => {
               label="CNAE"
               name="cnae"
               value={value || ''}
-              onChange={onChange}
+              onChange={(event) => maskHandler(maskCNAE)(event, onChange)}
             />
           )}
         />
