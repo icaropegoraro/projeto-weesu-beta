@@ -1,6 +1,7 @@
 import { useFormContext, Controller } from "react-hook-form"
 import { TextField, Grid } from "@mui/material"
 import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
+import { maskNumberPhone } from "../../../../../../shared/utils/masks/maskNumberPhone"
 import { maskHandler } from "../../../../../../shared/utils/maskHandler"
 
 export const FormDadosEmpresa = () => {
@@ -12,14 +13,13 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.cnpj"
           control={control}
-          render={({field: { onChange, value}}) => (
+          render={({ field: { onChange, value }}) => (
             <TextField
               fullWidth
               label="CNPJ"
               name="cnpj"
               value={value || ''}
               onChange={(event) => maskHandler(maskCNPJ)(event, onChange)}
-              
             />
           )}
         />
@@ -99,7 +99,7 @@ export const FormDadosEmpresa = () => {
               label="Telefone"
               name="telefone"
               value={value || ''}
-              onChange={onChange}
+              onChange={(event) => maskHandler(maskNumberPhone)(event, onChange)}
             />
           )}
         />
