@@ -1,49 +1,75 @@
-import { useFormContext } from "react-hook-form"
+import { useFormContext, Controller } from "react-hook-form"
 import { TextField, Grid } from "@mui/material"
 import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
+import { maskHandler } from "../../../../../../shared/utils/maskHandler"
 
 export const FormDadosEmpresa = () => {
-  const { register } = useFormContext()
+  const { control } = useFormContext()
 
   return (
     <Grid container spacing={2}>
       <Grid size={{xs: 12, md: 3}}>
-        <TextField
-          fullWidth
-          label="CNPJ"
-          name="cnpj"
-          {...register("empresa.dados.cnpj")}
-          onChange={(event) => {
-            const {value} = event.target
-            event.target.value = maskCNPJ(value)
-          }}
+        <Controller
+          name="empresa.dados.cnpj"
+          control={control}
+          render={({field: { onChange, value}}) => (
+            <TextField
+              fullWidth
+              label="CNPJ"
+              name="cnpj"
+              value={value || ''}
+              onChange={(event) => maskHandler(maskCNPJ)(event, onChange)}
+              
+            />
+          )}
         />
       </Grid>
 
       <Grid size={{xs: 12, md: 6}}>
-        <TextField
-          fullWidth
-          label="Razão Social"
-          name="razaoSocial"
-          {...register("empresa.dados.razaoSocial")}
+        <Controller
+          name="empresa.dados.razaoSocial"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Razão Social"
+              name="razaoSocial"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
         />
       </Grid>
 
       <Grid size={{xs: 12, md: 3}}>
-        <TextField
-          fullWidth
-          label="Nome Fantasia"
-          name="nomeFantasia"
-          {...register("empresa.dados.nomeFantasia")}
+        <Controller
+          name="empresa.dados.nomeFantasia"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Nome Fantasia"
+              name="nomeFantasia"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
         />
       </Grid>
 
       <Grid size={{xs: 12, md: 3}}>
-        <TextField
-          fullWidth
-          label="Inscrição Estadual"
-          name="inscricaoEstadual"
-          {...register("empresa.dados.inscricaoEstadual")}
+        <Controller
+          name="empresa.dados.inscricaoEstadual"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Inscrição Estadual"
+              name="inscricaoEstadual"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
         />
       </Grid>
 
