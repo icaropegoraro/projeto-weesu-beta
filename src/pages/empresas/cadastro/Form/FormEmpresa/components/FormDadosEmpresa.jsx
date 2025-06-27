@@ -1,8 +1,8 @@
 import { useFormContext, Controller } from "react-hook-form"
 import { TextField, Grid } from "@mui/material"
+import { maskHandler } from "../../../../../../shared/utils/maskHandler"
 import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
 import { maskNumberPhone } from "../../../../../../shared/utils/masks/maskNumberPhone"
-import { maskHandler } from "../../../../../../shared/utils/maskHandler"
 import { maskCNAE } from "../../../../../../shared/utils/masks/maskCNAE"
 
 export const FormDadosEmpresa = () => {

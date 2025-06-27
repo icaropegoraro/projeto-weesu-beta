@@ -1,7 +1,7 @@
-import { TextField, Grid } from '@mui/material'
 import { useFormContext, Controller } from 'react-hook-form'
-import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
+import { TextField, Grid } from '@mui/material'
 import { maskHandler } from '../../../../../../shared/utils/maskHandler'
+import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
 
 export const FormEnderecoEmpresa = () => {
     const { control } = useFormContext()

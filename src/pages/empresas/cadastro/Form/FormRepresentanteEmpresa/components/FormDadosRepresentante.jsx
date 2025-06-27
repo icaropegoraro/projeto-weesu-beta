@@ -1,9 +1,9 @@
+import { useFormContext, Controller } from 'react-hook-form'
 import { TextField, Grid } from '@mui/material'
+import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 import { maskCPF } from '../../../../../../shared/utils/masks/maskCPF'
 import { maskRG } from '../../../../../../shared/utils/masks/maskRG'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
-import { useFormContext, Controller } from 'react-hook-form'
-import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
@@ -154,6 +154,5 @@ export const FormDadosRepresentante = () => {
         />
       </Grid>
     </Grid>
-
   )
 }
