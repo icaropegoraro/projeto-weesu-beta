@@ -7,7 +7,7 @@ export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2}> 
       <Grid size={{xs: 12, md: 3}}>
         <Controller
           name="empresa.dados.cnpj"
