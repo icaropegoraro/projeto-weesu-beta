@@ -1,92 +1,158 @@
-import { TextField, Box, Grid } from '@mui/material'
+import { useFormContext, Controller } from 'react-hook-form'
+import { TextField, Grid } from '@mui/material'
+import { maskHandler } from '../../../../../../shared/utils/maskHandler'
+import { maskCPF } from '../../../../../../shared/utils/masks/maskCPF'
+import { maskRG } from '../../../../../../shared/utils/masks/maskRG'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
-import { useFormContext } from 'react-hook-form'
 
 export const FormDadosRepresentante = () => {
-  const { register } = useFormContext()
+  const { control } = useFormContext()
 
   return (
     <Grid container spacing={2}>
       <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            fullWidth
-            label="Nome"
-            name="nome"
-            {...register("representante.dados.nome")}
-          />
-        </Grid>
+        <Controller
+          name="representante.dados.nome"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Nome"
+              name="nome"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            label="Nome social"
-            name="nomeSocial"
-            {...register("representante.dados.nomeSocial")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name="representante.dados.nomeSocial"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Nome social"
+              name="nomeSocial"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            label="RG"
-            name="rg"
-            {...register("representante.dados.rg")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name="representante.dados.rg"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="RG"
+              name="rg"
+              value={value || ''}
+              onChange={(event) => maskHandler(maskRG)(event, onChange)}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            label="CPF"
-            name="cpf"
-            {...register("representante.dados.cpf")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name="representante.dados.cpf"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="CPF"
+              name="cpf"
+              value={value || ''}
+              onChange={(event) => maskHandler(maskCPF)(event, onChange)}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            label="Data de nascimento"
-            name="dataNascimento"
-            {...register("representante.dados.dataNascimento")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name="representante.dados.dataNascimento"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Data de nascimento"
+              name="dataNascimento"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            fullWidth
-            label="Nome da mãe"
-            name="nomeMaeRepresentante"
-            {...register("representante.dados.nomeMaeRepresentante")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <Controller
+          name="representante.dados.nomeMaeRepresentante"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Nome da mãe"
+              name="nomeMaeRepresentante"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            label="UF de emissão"
-            name="ufEmissao"
-            {...register("representante.dados.ufEmissao")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name="representante.dados.ufEmissao"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="UF de emissão"
+              name="ufEmissao"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 6 }}>
-          <TextField
-            fullWidth
-            label="Email"
-            name="email"
-            {...register("representante.dados.email")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 6 }}>
+        <Controller
+          name="representante.dados.email"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              value={value || ''}
+              onChange={onChange}
+            />
+          )}
+        />
+      </Grid>
 
-        <Grid size={{ xs: 12, md: 3 }}>
-          <TextField
-            fullWidth
-            label="Telefone"
-            name="telefone"
-            {...register("representante.dados.telefone")}
-          />
-        </Grid>
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name="representante.dados.telefone"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              fullWidth
+              label="Telefone"
+              name="telefone"
+              value={value || ''}
+              onChange={(event) => maskHandler(maskNumberPhone)(event, onChange)}
+            />
+          )}
+        />
+      </Grid>
     </Grid>
   )
 }
