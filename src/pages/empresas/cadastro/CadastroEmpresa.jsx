@@ -16,8 +16,8 @@ export const CadastroEmpresa = () => {
 
   const steps = ['Cadastro da empresa', 'Cadastro do representante']
   const stepComponents = [
-      <FormEmpresa key="empresa" onNext={nextStep} />,
-      <FormRepresentante key="representante" onBack={returnStep} />
+      <FormEmpresa key="empresa" onNextStep={nextStep}/>,
+      <FormRepresentante key="representante" />
     ]
 
   const isFirstStep = (currentStep === 0)

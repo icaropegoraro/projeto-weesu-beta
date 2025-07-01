@@ -4,9 +4,20 @@ import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 import { maskCPF } from '../../../../../../shared/utils/masks/maskCPF'
 import { maskRG } from '../../../../../../shared/utils/masks/maskRG'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
+import React, { useRef } from 'react'
+import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
+
+  const TextFieldRefs = useRef({})
+
+  const getRefs = (nome) => {
+    if (!TextFieldRefs.current[nome]) {
+        TextFieldRefs.current[nome] = React.createRef()
+    }
+    return TextFieldRefs.current[nome]
+  }
 
   return (
     <Grid container spacing={2}>
@@ -21,6 +32,8 @@ export const FormDadosRepresentante = () => {
               name="nome"
               value={value || ''}
               onChange={onChange}
+              inputRef={getRefs("representante.dados.nome")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeSocial"])}
             />
           )}
         />
@@ -37,6 +50,8 @@ export const FormDadosRepresentante = () => {
               name="nomeSocial"
               value={value || ''}
               onChange={onChange}
+              inputRef={getRefs("representante.dados.nomeSocial")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.rg"])}
             />
           )}
         />
@@ -52,7 +67,9 @@ export const FormDadosRepresentante = () => {
               label="RG"
               name="rg"
               value={value || ''}
-              onChange={(event) => maskHandler(maskRG)(event, onChange)}
+              onChange={event => maskHandler(maskRG)(event, onChange)}
+              inputRef={getRefs("representante.dados.rg")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.cpf"])}
             />
           )}
         />
@@ -68,7 +85,9 @@ export const FormDadosRepresentante = () => {
               label="CPF"
               name="cpf"
               value={value || ''}
-              onChange={(event) => maskHandler(maskCPF)(event, onChange)}
+              onChange={event => maskHandler(maskCPF)(event, onChange)}
+              inputRef={getRefs("representante.dados.cpf")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.dataNascimento"])}
             />
           )}
         />
@@ -85,6 +104,8 @@ export const FormDadosRepresentante = () => {
               name="dataNascimento"
               value={value || ''}
               onChange={onChange}
+              inputRef={getRefs("representante.dados.dataNascimento")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeMaeRepresentante"])}
             />
           )}
         />
@@ -101,6 +122,8 @@ export const FormDadosRepresentante = () => {
               name="nomeMaeRepresentante"
               value={value || ''}
               onChange={onChange}
+              inputRef={getRefs("representante.dados.nomeMaeRepresentante")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.ufEmissao"])}
             />
           )}
         />
@@ -117,6 +140,8 @@ export const FormDadosRepresentante = () => {
               name="ufEmissao"
               value={value || ''}
               onChange={onChange}
+              inputRef={getRefs("representante.dados.ufEmissao")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.email"])}
             />
           )}
         />
@@ -133,6 +158,8 @@ export const FormDadosRepresentante = () => {
               name="email"
               value={value || ''}
               onChange={onChange}
+              inputRef={getRefs("representante.dados.email")}
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.telefone"])}
             />
           )}
         />
@@ -148,11 +175,14 @@ export const FormDadosRepresentante = () => {
               label="Telefone"
               name="telefone"
               value={value || ''}
-              onChange={(event) => maskHandler(maskNumberPhone)(event, onChange)}
+              onChange={event => maskHandler(maskNumberPhone)(event, onChange)}
+              inputRef={getRefs("representante.dados.telefone")}
+              onKeyDown={(event) => handleEnterKeyPress(event, null)} // último campo, sem próximo
             />
           )}
         />
       </Grid>
+
     </Grid>
   )
 }
