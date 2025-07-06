@@ -1,6 +1,6 @@
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { TextField, Grid, MenuItem } from '@mui/material'
-import { maskHandler } from '../../../../../../shared/utils/maskHandler'
+import { maskHandler } from '../../../../../../shared/utils/masks/maskHandler'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
 import React, { useRef, useState, useEffect } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'

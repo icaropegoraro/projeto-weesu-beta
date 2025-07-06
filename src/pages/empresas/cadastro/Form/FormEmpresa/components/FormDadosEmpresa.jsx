@@ -2,15 +2,11 @@ import { useFormContext, Controller } from "react-hook-form"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { TextField, Grid, MenuItem } from "@mui/material"
-import { maskHandler } from "../../../../../../shared/utils/maskHandler"
-import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
-import { maskNumberPhone } from "../../../../../../shared/utils/masks/maskNumberPhone"
-import { maskCNAE } from "../../../../../../shared/utils/masks/maskCNAE"
+import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
 import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterKeyPress"
 import React, { useRef }  from "react"
 import dayjs from "dayjs"
-import { maskMoney } from '../../../../../../shared/utils/masks/maskMoney'
-import { maskOnlyNumbers } from "../../../../../../shared/utils/masks/maskOnlyNumbers"
+
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
