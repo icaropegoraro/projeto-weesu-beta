@@ -10,6 +10,7 @@ import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterK
 import React, { useRef }  from "react"
 import dayjs from "dayjs"
 import { maskMoney } from '../../../../../../shared/utils/masks/maskMoney'
+import { maskOnlyNumbers } from "../../../../../../shared/utils/masks/maskOnlyNumbers"
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
@@ -159,7 +160,7 @@ export const FormDadosEmpresa = () => {
               label="Inscrição Estadual"
               name="inscricaoEstadual"
               value={value || ''}
-              onChange={onChange}
+              onChange={event => maskHandler(maskOnlyNumbers, 14)(event, onChange)}
               inputRef={getRefs("empresa.dados.inscricaoEstadual")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.email"])
               }
@@ -213,10 +214,10 @@ export const FormDadosEmpresa = () => {
           render={({ field: { onChange, value } }) => (
             <TextField
               fullWidth
-              label="Quantidade de Clientes"
-              name="qtdClientes"
+              label='Quantidade de Clientes'
+              name='qtdClientes'
               value={value || ''}
-              onChange={onChange}
+              onChange={(event) => maskHandler(maskOnlyNumbers, 8)(event, onChange)}
               inputRef={getRefs("empresa.dados.qtdClientes")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.vencimento"])
               }

@@ -2,6 +2,7 @@ import { useFormContext, Controller } from 'react-hook-form'
 import { TextField, Grid } from '@mui/material'
 import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
+import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 import React, { useRef } from 'react'
 
@@ -65,7 +66,7 @@ export const FormEnderecoRepresentante = () => {
                         label="Número"
                         name="streetNumber"
                         value={value || ''}
-                        onChange={onChange}
+                        onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
                         inputRef={getRefs("representante.endereco.streetNumber")}
                         onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.complemento"])}
                     />

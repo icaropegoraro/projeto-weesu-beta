@@ -4,6 +4,7 @@ import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
 import React, { useRef } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
+import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
 
 export const FormEnderecoEmpresa = ({ onNextStep }) => {
     const { control } = useFormContext()
@@ -65,7 +66,7 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
                             name="streetNumber"
                             fullWidth
                             value={value || ''}
-                            onChange={onChange}
+                            onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
                             inputRef={getRefs("empresa.endereco.streetNumber")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.complemento"])}
                         />

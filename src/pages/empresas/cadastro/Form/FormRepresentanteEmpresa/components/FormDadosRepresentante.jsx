@@ -9,6 +9,7 @@ import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumber
 import React, { useRef } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 import dayjs from 'dayjs'
+import { maskOnlyLetters } from '../../../../../../shared/utils/masks/maskOnlyLetters'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
@@ -36,7 +37,7 @@ export const FormDadosRepresentante = () => {
               label="Nome"
               name="nome"
               value={value || ''}
-              onChange={onChange}
+              onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
               inputRef={getRefs("representante.dados.nome")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeSocial"])}
             />
@@ -54,7 +55,7 @@ export const FormDadosRepresentante = () => {
               label="Nome social"
               name="nomeSocial"
               value={value || ''}
-              onChange={onChange}
+              onChange={event => maskHandler(maskOnlyLetters, 70)(event, onChange)}
               inputRef={getRefs("representante.dados.nomeSocial")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.rg"])}
             />
@@ -134,7 +135,7 @@ export const FormDadosRepresentante = () => {
               label="Nome da mãe"
               name="nomeMaeRepresentante"
               value={value || ''}
-              onChange={onChange}
+              onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
               inputRef={getRefs("representante.dados.nomeMaeRepresentante")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.ufEmissao"])}
             />
