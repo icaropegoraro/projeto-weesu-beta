@@ -1,13 +1,14 @@
-import { useFormContext, Controller } from 'react-hook-form'
-import { TextField, Grid } from '@mui/material'
+import { useFormContext, Controller, useWatch } from 'react-hook-form'
+import { TextField, Grid, MenuItem } from '@mui/material'
 import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
+import axios from 'axios'
 
 export const FormEnderecoEmpresa = ({ onNextStep }) => {
-    const { control } = useFormContext()
+    const { control, setValue } = useFormContext()
 
     const TextFieldRefs = useRef({}) 
     
@@ -17,6 +18,59 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
         }
         return TextFieldRefs.current[nome]
     }
+
+    const cep = useWatch({ control, name: "empresa.endereco.cep" })
+    const uf = useWatch({ control, name: "empresa.endereco.uf" })
+
+    const [estados, setEstados] = useState([])
+    const [cidades, setCidades] = useState([])
+
+    useEffect(() => {
+        const fetchEstados = async () => {
+            try {
+                const response = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+                const estadosOrdenados = response.data.sort((a, b) => a.nome.localeCompare(b.nome))
+                setEstados(estadosOrdenados)
+            } catch (error) {
+                console.error("Erro ao buscar estados do IBGE", error)
+            }
+        }
+        fetchEstados()
+    }, [])
+
+    useEffect(() => {
+        const fetchCidades = async () => {
+            if (!uf) return
+            try {
+                const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+                const cidadesOrdenadas = response.data.map((c) => c.nome).sort((a, b) => a.localeCompare(b))
+                setCidades(cidadesOrdenadas)
+            } catch (error) {
+                console.error("Erro ao buscar cidades do IBGE", error)
+                setCidades([])
+            }
+        }
+        fetchCidades()
+    }, [uf])
+
+    useEffect(() => {
+        const buscarEnderecoPorCep = async () => {
+            const cepLimpo = cep?.replace(/\D/g, "")
+            if (cepLimpo?.length === 8) {
+                try {
+                    const { data } = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+                    if (!data.erro) {
+                        setValue("empresa.endereco.uf", data.uf)
+                        setValue("empresa.endereco.cidade", data.localidade)
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar CEP", error)
+                }
+            }
+        }
+
+    buscarEnderecoPorCep()
+  }, [cep, setValue])
 
     return (
         <Grid container spacing={2}>
@@ -123,7 +177,25 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
                             onChange={onChange}
                             inputRef={getRefs("empresa.endereco.uf")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cidade"])}
-                        />
+                            select
+                            slotProps={{
+                                select: {
+                                    MenuProps: {
+                                        PaperProps: {
+                                        style: {
+                                            maxHeight: 150,
+                                        },
+                                        },
+                                    },
+                                },
+                            }}
+                        >
+                            {estados.map((estado) => (
+                                <MenuItem key={estado.sigla} value={estado.sigla}>
+                                {estado.nome}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     )}
                 />
             </Grid>
@@ -146,7 +218,25 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
                                 onNextStep()
                                 }
                             }}
-                        />
+                            select
+                            slotProps={{
+                                select: {
+                                    MenuProps: {
+                                        PaperProps: {
+                                        style: {
+                                            maxHeight: 150,
+                                        },
+                                        },
+                                    },
+                                },
+                            }}
+                        >
+                            {cidades.map((cidade) => (
+                                <MenuItem key={cidade} value={cidade}>
+                                {cidade}
+                                </MenuItem>
+                            ))}
+                        </TextField>
                     )}
                 />
             </Grid>
