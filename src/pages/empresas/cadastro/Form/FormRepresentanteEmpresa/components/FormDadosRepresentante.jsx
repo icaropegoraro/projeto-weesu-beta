@@ -27,6 +27,7 @@ export const FormDadosRepresentante = () => {
 
   return (
     <Grid container spacing={2}>
+      
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
           name="representante.dados.nome"
@@ -44,7 +45,6 @@ export const FormDadosRepresentante = () => {
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
           name="representante.dados.nomeSocial"
@@ -62,7 +62,6 @@ export const FormDadosRepresentante = () => {
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
           name="representante.dados.rg"
@@ -98,7 +97,6 @@ export const FormDadosRepresentante = () => {
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
           name="representante.dados.dataNascimento"
@@ -124,7 +122,6 @@ export const FormDadosRepresentante = () => {
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
           name="representante.dados.nomeMaeRepresentante"
@@ -160,7 +157,6 @@ export const FormDadosRepresentante = () => {
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
           name="representante.dados.email"
@@ -178,7 +174,6 @@ export const FormDadosRepresentante = () => {
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
           name="representante.dados.telefone"

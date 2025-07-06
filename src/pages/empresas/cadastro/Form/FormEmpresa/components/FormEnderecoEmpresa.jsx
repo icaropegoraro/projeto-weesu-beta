@@ -106,7 +106,7 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
                         inputRef={getRefs("empresa.endereco.street")}
                         onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.streetNumber"])}
                         />
-                )}
+                    )}
                 />
             </Grid>
 
@@ -142,7 +142,7 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
                             inputRef={getRefs("empresa.endereco.complemento")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.bairro"])}
                         />
-                )}
+                    )}
                 />
             </Grid>
 

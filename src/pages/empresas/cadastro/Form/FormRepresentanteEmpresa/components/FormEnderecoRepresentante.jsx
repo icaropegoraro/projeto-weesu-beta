@@ -79,116 +79,114 @@ export const FormEnderecoRepresentante = () => {
                     name="representante.endereco.cep"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="CEP"
-                        name="cep"
-                        value={value || ''}
-                        onChange={event => maskHandler(maskCEP)(event, onChange)}
-                        inputRef={getRefs("representante.endereco.cep")}
-                        onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.street"])}
-                    />
+                        <TextField
+                            fullWidth
+                            label="CEP"
+                            name="cep"
+                            value={value || ''}
+                            onChange={event => maskHandler(maskCEP)(event, onChange)}
+                            inputRef={getRefs("representante.endereco.cep")}
+                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.street"])}
+                        />
                     )}
                 />
-                </Grid>
-
-                <Grid size={{ xs: 12, md: 6 }}>
+            </Grid>
+            <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
                     name="representante.endereco.street"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="Rua"
-                        name="street"
-                        value={value || ''}
-                        onChange={onChange}
-                        inputRef={getRefs("representante.endereco.street")}
-                        onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.streetNumber"])}
-                    />
+                        <TextField
+                            fullWidth
+                            label="Rua"
+                            name="street"
+                            value={value || ''}
+                            onChange={onChange}
+                            inputRef={getRefs("representante.endereco.street")}
+                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.streetNumber"])}
+                        />
                     )}
                 />
-                </Grid>
-
-                <Grid size={{ xs: 12, md: 3 }}>
+            </Grid>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
                     name="representante.endereco.streetNumber"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="Número"
-                        name="streetNumber"
-                        value={value || ''}
-                        onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
-                        inputRef={getRefs("representante.endereco.streetNumber")}
-                        onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.complemento"])}
-                    />
+                        <TextField
+                            fullWidth
+                            label="Número"
+                            name="streetNumber"
+                            value={value || ''}
+                            onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
+                            inputRef={getRefs("representante.endereco.streetNumber")}
+                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.complemento"])}
+                        />
                     )}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
                     name="representante.endereco.complemento"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="Complemento"
-                        name="complemento"
-                        value={value || ''}
-                        onChange={onChange}
-                        inputRef={getRefs("representante.endereco.complemento")}
-                        onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.bairro"])}
-                    />
+                        <TextField
+                            fullWidth
+                            label="Complemento"
+                            name="complemento"
+                            value={value || ''}
+                            onChange={onChange}
+                            inputRef={getRefs("representante.endereco.complemento")}
+                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.bairro"])}
+                        />
                     )}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
                     name="representante.endereco.bairro"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="Bairro"
-                        name="bairro"
-                        value={value || ''}
-                        onChange={onChange}
-                        inputRef={getRefs("representante.endereco.bairro")}
-                        onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.uf"])}
-                    />
+                        <TextField
+                            fullWidth
+                            label="Bairro"
+                            name="bairro"
+                            value={value || ''}
+                            onChange={onChange}
+                            inputRef={getRefs("representante.endereco.bairro")}
+                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.uf"])}
+                        />
                     )}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
                     name="representante.endereco.uf"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="Estado"
-                        name="uf"
-                        value={value || ''}
-                        onChange={onChange}
-                        inputRef={getRefs("representante.endereco.uf")}
-                        onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.cidade"])}
-                        select
-                            slotProps={{
-                                select: {
-                                    MenuProps: {
-                                        PaperProps: {
-                                        style: {
-                                            maxHeight: 150,
-                                        },
+                        <TextField
+                            fullWidth
+                            label="Estado"
+                            name="uf"
+                            value={value || ''}
+                            onChange={onChange}
+                            inputRef={getRefs("representante.endereco.uf")}
+                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.cidade"])}
+                            select
+                                slotProps={{
+                                    select: {
+                                        MenuProps: {
+                                            PaperProps: {
+                                            style: {
+                                                maxHeight: 150,
+                                            },
+                                            },
                                         },
                                     },
-                                },
-                            }}
+                                }}
                         >
                             {estados.map((estado) => (
                                 <MenuItem key={estado.sigla} value={estado.sigla}>
@@ -198,28 +196,28 @@ export const FormEnderecoRepresentante = () => {
                         </TextField>
                     )}
                 />
-                </Grid>
+            </Grid>
 
-                <Grid size={{ xs: 12, md: 3 }}>
+            <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
                     name="representante.endereco.cidade"
                     control={control}
                     render={({ field: { onChange, value } }) => (
-                    <TextField
-                        fullWidth
-                        label="Cidade"
-                        name="cidade"
-                        value={value || ''}
-                        onChange={onChange}
-                        inputRef={getRefs("representante.endereco.cidade")}
-                    select
+                        <TextField
+                            fullWidth
+                            label="Cidade"
+                            name="cidade"
+                            value={value || ''}
+                            onChange={onChange}
+                            inputRef={getRefs("representante.endereco.cidade")}
+                            select
                             slotProps={{
                                 select: {
                                     MenuProps: {
                                         PaperProps: {
-                                        style: {
-                                            maxHeight: 150,
-                                        },
+                                            style: {
+                                                maxHeight: 150,
+                                            },
                                         },
                                     },
                                 },
@@ -227,13 +225,13 @@ export const FormEnderecoRepresentante = () => {
                         >
                             {cidades.map((cidade) => (
                                 <MenuItem key={cidade} value={cidade}>
-                                {cidade}
+                                    {cidade}
                                 </MenuItem>
                             ))}
                         </TextField>
                     )}
                 />
-                </Grid>
+            </Grid>
 
         </Grid>
     )

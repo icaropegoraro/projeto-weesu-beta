@@ -5,10 +5,18 @@ import { FormEnderecoRepresentante } from "./components/FormEnderecoRepresentant
 export const FormRepresentante = () => {
     return (
         <Grid container spacing={2}>
-            <Typography variant="h5" gutterBottom>Dados do representante</Typography>
-            <FormDadosRepresentante />
-            <Typography variant="h5" gutterBottom>Endereço do representante</Typography>
-            <FormEnderecoRepresentante />
+            <Grid size={{ xs: 12 }}>
+                <Typography variant="h5" gutterBottom>Dados do representante</Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <FormDadosRepresentante />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <Typography variant="h5" gutterBottom>Endereço do representante</Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <FormEnderecoRepresentante />
+            </Grid>
         </Grid>
     )
 }
