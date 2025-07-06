@@ -1,11 +1,14 @@
 import { useFormContext, Controller } from 'react-hook-form'
 import { TextField, Grid } from '@mui/material'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { maskHandler } from '../../../../../../shared/utils/maskHandler'
 import { maskCPF } from '../../../../../../shared/utils/masks/maskCPF'
 import { maskRG } from '../../../../../../shared/utils/masks/maskRG'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
 import React, { useRef } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
+import dayjs from 'dayjs'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
@@ -18,6 +21,8 @@ export const FormDadosRepresentante = () => {
     }
     return TextFieldRefs.current[nome]
   }
+
+  const currentDate = dayjs()
 
   return (
     <Grid container spacing={2}>
@@ -98,15 +103,23 @@ export const FormDadosRepresentante = () => {
           name="representante.dados.dataNascimento"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <TextField
-              fullWidth
-              label="Data de nascimento"
-              name="dataNascimento"
-              value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("representante.dados.dataNascimento")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeMaeRepresentante"])}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Data de nascimento"
+                format="DD/MM/YYYY"
+                maxDate={currentDate}
+                value={value || null}
+                onChange={onChange}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    inputRef: getRefs("representante.dados.dataNascimento"),
+                    onKeyDown: (event) =>
+                      handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeMaeRepresentante"]),
+                  },
+                }}
+              />
+            </LocalizationProvider>
           )}
         />
       </Grid>

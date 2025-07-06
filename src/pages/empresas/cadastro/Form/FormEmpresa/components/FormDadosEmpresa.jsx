@@ -1,11 +1,15 @@
 import { useFormContext, Controller } from "react-hook-form"
-import { TextField, Grid } from "@mui/material"
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { TextField, Grid, MenuItem } from "@mui/material"
 import { maskHandler } from "../../../../../../shared/utils/maskHandler"
 import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
 import { maskNumberPhone } from "../../../../../../shared/utils/masks/maskNumberPhone"
 import { maskCNAE } from "../../../../../../shared/utils/masks/maskCNAE"
 import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterKeyPress"
 import React, { useRef }  from "react"
+import dayjs from "dayjs"
+import { maskMoney } from '../../../../../../shared/utils/masks/maskMoney'
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
@@ -18,6 +22,73 @@ export const FormDadosEmpresa = () => {
     }
     return TextFieldRefs.current[nome]
   }
+
+  const currentDate = dayjs()
+
+  const vencimento = [
+    {
+      value: 5,
+      label: '5'
+    },
+    {
+      value: 10,
+      label: '10'
+    },
+    {
+      value: 15,
+      label: '15'
+    },
+    {
+      value: 20,
+      label: 20
+    },
+    {
+      value: 25,
+      label: 25
+    },
+  ]
+
+  const formatoConstituicao = [
+    {
+      value: 'MEI',
+      label: 'Microempreendedor Individual'
+    },
+    {
+      value: 'EI',
+      label: 'Empresário Individual'
+    },
+    {
+      value: 'LTDA',
+      label: 'Sociedade Limitada'
+    },
+    {
+      value: 'SLU',
+      label: 'Sociedade Limitada Unipessoal'
+    },
+    {
+      value: 'SS',
+      label: 'Sociedade Simples'
+    },
+    {
+      value: 'SA',
+      label: 'Sociedade Anônima'
+    }
+  ]
+
+  const regimeTributario = [
+    {
+      value: 'Simples Nacional',
+      label: 'Simples Nacional'
+    },
+    {
+      value: 'Lucro Presumido',
+      label: 'Lucro Presumido' 
+    },
+    {
+      value: 'Lucro Real',
+      label: 'Lucro Real'
+    }
+  ]
 
   return (
     <Grid container spacing={2}>
@@ -160,6 +231,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
+              select
               fullWidth
               label="Vencimento"
               name="vencimento"
@@ -168,7 +240,13 @@ export const FormDadosEmpresa = () => {
               inputRef={getRefs("empresa.dados.vencimento")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.dataAbertura"])
               }
-            />
+            >
+              {vencimento.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       </Grid>
@@ -178,16 +256,23 @@ export const FormDadosEmpresa = () => {
           name="empresa.dados.dataAbertura"
           control={control}
           render={({ field: { onChange, value } }) => (
-            <TextField
-              fullWidth
-              label="Data de Abertura"
-              name="dataAbertura"
-              value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("empresa.dados.dataAbertura")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.cnae"])
-              }
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Data de abertura"
+                format="DD/MM/YYYY"
+                maxDate={currentDate}
+                value={value || null}
+                onChange={onChange}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    inputRef: getRefs("empresa.dados.dataAbertura"),
+                    onKeyDown: (event) =>
+                      handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.cnae"]),
+                  },
+                }}
+              />
+            </LocalizationProvider>
           )}
         />
       </Grid>
@@ -218,10 +303,10 @@ export const FormDadosEmpresa = () => {
           render={({ field: { onChange, value } }) => (
             <TextField
               fullWidth
-              label="Faturamento"
+              label="Faturamento (R$)"
               name="faturamento"
               value={value || ''}
-              onChange={onChange}
+              onChange={(event) => maskHandler(maskMoney)(event, onChange)}
               inputRef={getRefs("empresa.dados.faturamento")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.tipoAtuacao"])
               }
@@ -255,6 +340,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
+              select
               fullWidth
               label="Regime Tributário"
               name="regimeTributario"
@@ -263,7 +349,13 @@ export const FormDadosEmpresa = () => {
               inputRef={getRefs("empresa.dados.regimeTributario")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.formatoConstituicao"])
               }
-            />
+            >
+              {regimeTributario.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       </Grid>
@@ -274,6 +366,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
+              select
               fullWidth
               label="Formato de constituição"
               name="formatoConstituicao"
@@ -282,7 +375,13 @@ export const FormDadosEmpresa = () => {
               inputRef={getRefs("empresa.dados.formatoConstituicao")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cep"])
               }
-            />
+            >
+              {formatoConstituicao.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       </Grid>
