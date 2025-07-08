@@ -204,6 +204,7 @@ export const FormEnderecoRepresentante = () => {
                     control={control}
                     render={({ field: { onChange, value } }) => (
                         <TextField
+                            disabled={!uf}
                             fullWidth
                             label="Cidade"
                             name="cidade"

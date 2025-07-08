@@ -206,6 +206,7 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
                     control={control}
                     render={({ field: { onChange, value } }) => (
                         <TextField
+                            disabled={!uf}
                             label="Cidade"
                             name="cidade"
                             fullWidth
