@@ -7,7 +7,7 @@ import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterK
 import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
 import axios from 'axios'
 
-export const FormEnderecoEmpresa = ({ onNextStep }) => {
+export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
     const { control, setValue } = useFormContext()
 
     const TextFieldRefs = useRef({}) 
@@ -22,21 +22,7 @@ export const FormEnderecoEmpresa = ({ onNextStep }) => {
     const cep = useWatch({ control, name: "empresa.endereco.cep" })
     const uf = useWatch({ control, name: "empresa.endereco.uf" })
 
-    const [estados, setEstados] = useState([])
     const [cidades, setCidades] = useState([])
-
-    useEffect(() => {
-        const fetchEstados = async () => {
-            try {
-                const response = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-                const estadosOrdenados = response.data.sort((a, b) => a.nome.localeCompare(b.nome))
-                setEstados(estadosOrdenados)
-            } catch (error) {
-                console.error("Erro ao buscar estados do IBGE", error)
-            }
-        }
-        fetchEstados()
-    }, [])
 
     useEffect(() => {
         const fetchCidades = async () => {

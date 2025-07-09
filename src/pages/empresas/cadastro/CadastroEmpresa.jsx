@@ -1,12 +1,29 @@
 import { useForm, FormProvider } from 'react-hook-form'
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button, Box, Stepper, StepButton, Step } from "@mui/material"
 import { FormRepresentante } from "./Form/FormRepresentanteEmpresa/FormRepresentante"
 import { FormEmpresa } from "./Form/FormEmpresa/FormEmpresa"
 import { Grid } from '@mui/system'
+import axios from 'axios'
 
 export const CadastroEmpresa = () => {
   const methods = useForm()
+
+  const [estados, setEstados] = useState([])
+
+  useEffect(() => {
+    const fetchEstados = async () => {
+      try {
+        const response = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+        const estadosOrdenados = response.data.sort((a, b) => a.nome.localeCompare(b.nome))
+        setEstados(estadosOrdenados)
+      } catch (error) {
+        console.error('Erro ao buscar estados:', error)
+      }
+    }
+
+    fetchEstados()
+  }, [])
 
   const [currentStep, setCurrentStep] = useState(0)
 
@@ -16,8 +33,8 @@ export const CadastroEmpresa = () => {
 
   const steps = ['Cadastro da empresa', 'Cadastro do representante']
   const stepComponents = [
-      <FormEmpresa key="empresa" onNextStep={nextStep}/>,
-      <FormRepresentante key="representante" />
+      <FormEmpresa estados={estados} onNextStep={nextStep}/>,
+      <FormRepresentante estados={estados} />
   ]
 
   const isFirstStep = (currentStep === 0)

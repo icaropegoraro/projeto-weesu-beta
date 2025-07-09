@@ -2,7 +2,7 @@ import { Typography, Grid } from "@mui/material"
 import { FormDadosEmpresa } from "./components/FormDadosEmpresa"
 import { FormEnderecoEmpresa } from "./components/FormEnderecoEmpresa"
 
-export const FormEmpresa = ({ onNextStep }) => {
+export const FormEmpresa = ({ estados, onNextStep }) => {
     return (
         <Grid container spacing={2}>
             <Grid size={{ xs: 12 }}>
@@ -15,7 +15,7 @@ export const FormEmpresa = ({ onNextStep }) => {
                 <Typography variant="h5" gutterBottom>Endereço da Empresa</Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
-                <FormEnderecoEmpresa onNextStep={onNextStep}/>
+                <FormEnderecoEmpresa estados={estados} onNextStep={onNextStep}/>
             </Grid>
         </Grid>
     )

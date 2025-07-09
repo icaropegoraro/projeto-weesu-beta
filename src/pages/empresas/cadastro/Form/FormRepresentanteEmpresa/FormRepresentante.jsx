@@ -2,7 +2,7 @@ import { Grid, Typography } from "@mui/material"
 import { FormDadosRepresentante } from "./components/FormDadosRepresentante"
 import { FormEnderecoRepresentante } from "./components/FormEnderecoRepresentante"
 
-export const FormRepresentante = () => {
+export const FormRepresentante = ({estados}) => {
     return (
         <Grid container spacing={2}>
             <Grid size={{ xs: 12 }}>
@@ -15,7 +15,7 @@ export const FormRepresentante = () => {
                 <Typography variant="h5" gutterBottom>Endereço do representante</Typography>
             </Grid>
             <Grid size={{ xs: 12 }}>
-                <FormEnderecoRepresentante />
+                <FormEnderecoRepresentante estados={estados}/>
             </Grid>
         </Grid>
     )

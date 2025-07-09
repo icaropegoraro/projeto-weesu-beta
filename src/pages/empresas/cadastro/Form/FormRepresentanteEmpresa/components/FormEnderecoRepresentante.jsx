@@ -7,7 +7,7 @@ import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterK
 import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
 
-export const FormEnderecoRepresentante = () => {
+export const FormEnderecoRepresentante = ({estados}) => {
     const { control, setValue } = useFormContext()
 
     const TextFieldRefs = useRef({})
@@ -22,21 +22,7 @@ export const FormEnderecoRepresentante = () => {
     const cep = useWatch({ control, name: "representante.endereco.cep" })
     const uf = useWatch({ control, name: "representante.endereco.uf" })
 
-    const [estados, setEstados] = useState([])
     const [cidades, setCidades] = useState([])
-
-    useEffect(() => {
-        const fetchEstados = async () => {
-            try {
-                const response = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
-                const estadosOrdenados = response.data.sort((a, b) => a.nome.localeCompare(b.nome))
-                setEstados(estadosOrdenados)
-            } catch (error) {
-                console.error("Erro ao buscar estados do IBGE", error)
-            }
-        }
-        fetchEstados()
-    }, [])
 
     useEffect(() => {
         const fetchCidades = async () => {
