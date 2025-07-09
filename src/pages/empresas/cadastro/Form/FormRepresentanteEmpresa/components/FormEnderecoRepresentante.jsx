@@ -23,14 +23,22 @@ export const FormEnderecoRepresentante = ({estados}) => {
     const uf = useWatch({ control, name: "representante.endereco.uf" })
 
     const [cidades, setCidades] = useState([])
+    const cidadesCache = useRef({})
 
     useEffect(() => {
         const fetchCidades = async () => {
             if (!uf) return
+            if (cidadesCache.current[uf]) {
+                setCidades(cidadesCache.current[uf])
+                return
+            }
             try {
                 const response = await axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
-                const cidadesOrdenadas = response.data.map((c) => c.nome).sort((a, b) => a.localeCompare(b))
-                setCidades(cidadesOrdenadas)
+                const cidadesFiltradas = response.data
+                    .map(({ id, nome }) => ({ id, nome }))
+                    .sort((a, b) => a.nome.localeCompare(b.nome))
+                setCidades(cidadesFiltradas)
+                cidadesCache.current[uf] = response.data
             } catch (error) {
                 console.error("Erro ao buscar cidades do IBGE", error)
                 setCidades([])
@@ -211,8 +219,8 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             }}
                         >
                             {cidades.map((cidade) => (
-                                <MenuItem key={cidade} value={cidade}>
-                                    {cidade}
+                                <MenuItem key={cidade.id} value={cidade.nome}>
+                                    {cidade.nome}
                                 </MenuItem>
                             ))}
                         </TextField>
