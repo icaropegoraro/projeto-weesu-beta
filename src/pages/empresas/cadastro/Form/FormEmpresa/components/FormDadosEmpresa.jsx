@@ -1,10 +1,10 @@
 import { useFormContext, Controller } from "react-hook-form"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { TextField, Grid, MenuItem } from "@mui/material"
+import { TextField, Grid, MenuItem, Checkbox, InputAdornment } from "@mui/material"
 import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
 import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterKeyPress"
-import React, { useRef }  from "react"
+import React, { useRef, useState }  from "react"
 import dayjs from "dayjs"
 
 
@@ -21,6 +21,12 @@ export const FormDadosEmpresa = () => {
   }
 
   const currentDate = dayjs()
+
+  const [hasIE, setHasIE] = useState(true)
+
+  const desativarIE = () => {
+    setHasIE(!hasIE)
+  }
 
   const vencimento = [
     {
@@ -152,6 +158,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
+              disabled={!hasIE}
               fullWidth
               label="Inscrição Estadual"
               name="inscricaoEstadual"
@@ -160,7 +167,20 @@ export const FormDadosEmpresa = () => {
               inputRef={getRefs("empresa.dados.inscricaoEstadual")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.email"])
               }
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <Checkbox
+                        checked={hasIE}
+                        onChange={desativarIE}
+                      />
+                    </InputAdornment>
+                  ),
+                },
+              }}
             />
+              
           )}
         />
       </Grid>
