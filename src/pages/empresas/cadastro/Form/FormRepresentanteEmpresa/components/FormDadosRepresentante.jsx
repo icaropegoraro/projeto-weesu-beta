@@ -35,7 +35,7 @@ export const FormDadosRepresentante = () => {
           render={({ field: { onChange, value } }) => (
             <TextField
               fullWidth
-              label="Nome"
+              label="Nome completo"
               name="nome"
               value={value || ''}
               onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
@@ -52,7 +52,7 @@ export const FormDadosRepresentante = () => {
           render={({ field: { onChange, value } }) => (
             <TextField
               fullWidth
-              label="Nome social"
+              label="Nome social (não obrigatório)"
               name="nomeSocial"
               value={value || ''}
               onChange={event => maskHandler(maskOnlyLetters, 70)(event, onChange)}
