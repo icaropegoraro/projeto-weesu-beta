@@ -1,7 +1,7 @@
 import { useFormContext, Controller } from "react-hook-form"
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { TextField, Grid, MenuItem, Checkbox, InputAdornment } from "@mui/material"
+import { TextField, Grid, MenuItem, Checkbox, InputAdornment, FormControlLabel } from "@mui/material"
 import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
 import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterKeyPress"
 import React, { useRef, useState }  from "react"
@@ -22,10 +22,10 @@ export const FormDadosEmpresa = () => {
 
   const currentDate = dayjs()
 
-  const [hasIE, setHasIE] = useState(true)
+  const [isencaoIE, setIsencaoIE] = useState()
 
-  const desativarIE = () => {
-    setHasIE(!hasIE)
+  const changeIE = () => {
+    setIsencaoIE(!isencaoIE)
   }
 
   const vencimento = [
@@ -158,7 +158,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           render={({ field: { onChange, value } }) => (
             <TextField
-              disabled={!hasIE}
+              disabled={isencaoIE}
               fullWidth
               label="Inscrição Estadual"
               name="inscricaoEstadual"
@@ -171,10 +171,17 @@ export const FormDadosEmpresa = () => {
                 input: {
                   endAdornment: (
                     <InputAdornment position="end">
-                      <Checkbox
-                        checked={hasIE}
-                        onChange={desativarIE}
-                      />
+                      <FormControlLabel
+                        label='Isento'
+                        control={
+                          <Checkbox
+                            checked={isencaoIE}
+                            onChange={changeIE}
+                          />
+                        }
+                      >
+                        
+                      </FormControlLabel>
                     </InputAdornment>
                   ),
                 },
