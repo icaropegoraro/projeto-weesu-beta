@@ -23,7 +23,7 @@ export const FormDadosEmpresa = () => {
 
   const currentDate = dayjs()
 
-  const [isencaoIE, setIsencaoIE] = useState()
+  const [isencaoIE, setIsencaoIE] = useState(false)
 
   const changeIE = () => {
     setIsencaoIE(!isencaoIE)
@@ -35,13 +35,23 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.cnpj"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'CNPJ é obrigatório',
+            validate: (value) => {
+              const numericValue = value.replace(/\D/g, '');
+              return numericValue.length === 14 || 'CNPJ deve conter 14 números';
+            }
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="CNPJ"
               name="cnpj"
               value={value || ''}
               onChange={(event) => maskHandler(maskCNPJ)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.cnpj")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.razaoSocial"])
               }
@@ -54,13 +64,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.razaoSocial"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Razão social é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Razão Social"
+              label="Razão social"
               name="razaoSocial"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.razaoSocial")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.nomeFantasia"])
               }
@@ -73,13 +89,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.nomeFantasia"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Nome fantasia é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Nome Fantasia"
+              label="Nome fantasia"
               name="nomeFantasia"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.nomeFantasia")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.inscricaoEstadual"])
               }
@@ -92,14 +114,18 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.inscricaoEstadual"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={!isencaoIE ? { required: 'Inscrição estadual é obrigatório'} : {}}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               disabled={isencaoIE}
               fullWidth
-              label="Inscrição Estadual"
+              label="Inscrição estadual"
               name="inscricaoEstadual"
               value={value || ''}
               onChange={event => maskHandler(maskOnlyNumbers, 14)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.inscricaoEstadual")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.email"])
               }
@@ -132,13 +158,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.email"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Email da empresa é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Email"
               name="email"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.email")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.telefone"])
               }
@@ -151,13 +183,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.telefone"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Número de telefone é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Telefone"
               name="telefone"
               value={value || ''}
               onChange={(event) => maskHandler(maskNumberPhone)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.telefone")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.qtdClientes"])
               }
@@ -170,13 +208,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.qtdClientes"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Quantidade de clientes é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label='Quantidade de Clientes'
+              label='Quantidade de clientes'
               name='qtdClientes'
               value={value || ''}
               onChange={(event) => maskHandler(maskOnlyNumbers, 8)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.qtdClientes")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.vencimento"])
               }
@@ -189,7 +233,10 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.vencimento"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Vencimento é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               select
               fullWidth
@@ -197,6 +244,9 @@ export const FormDadosEmpresa = () => {
               name="vencimento"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.vencimento")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.dataAbertura"])
               }
@@ -215,14 +265,20 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.dataAbertura"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Data de abertura é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Data de abertura"
                 format="DD/MM/YYYY"
                 maxDate={currentDate}
-                value={value || null}
+                value={value}
                 onChange={onChange}
+                onBlur={onBlur}
+                error={!!error}
+                helperText={error?.message}
                 slotProps={{
                   textField: {
                     fullWidth: true,
@@ -241,13 +297,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.cnae"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'CNAE é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="CNAE"
               name="cnae"
               value={value || ''}
               onChange={(event) => maskHandler(maskCNAE)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.cnae")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.faturamento"])
               }
@@ -260,13 +322,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.faturamento"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Faturamento é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Faturamento (R$)"
               name="faturamento"
               value={value || ''}
               onChange={(event) => maskHandler(maskMoney)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.faturamento")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.tipoAtuacao"])
               }
@@ -279,13 +347,19 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.tipoAtuacao"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Tipo de atuação é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Tipo de Atuação"
               name="tipoAtuacao"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.tipoAtuacao")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.regimeTributario"])
               }
@@ -298,7 +372,10 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.regimeTributario"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Regime tributário é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               select
               fullWidth
@@ -306,6 +383,9 @@ export const FormDadosEmpresa = () => {
               name="regimeTributario"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.regimeTributario")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.formatoConstituicao"])
               }
@@ -324,7 +404,10 @@ export const FormDadosEmpresa = () => {
         <Controller
           name="empresa.dados.formatoConstituicao"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Formato de constituição é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               select
               fullWidth
@@ -332,6 +415,9 @@ export const FormDadosEmpresa = () => {
               name="formatoConstituicao"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("empresa.dados.formatoConstituicao")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cep"])
               }

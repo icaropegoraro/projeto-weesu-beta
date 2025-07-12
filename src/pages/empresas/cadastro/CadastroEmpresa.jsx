@@ -7,7 +7,9 @@ import { Grid } from '@mui/system'
 import axios from 'axios'
 
 export const CadastroEmpresa = () => {
-  const methods = useForm()
+  const methods = useForm({
+    mode: 'onBlur'
+  })
 
   const [estados, setEstados] = useState([])
 
