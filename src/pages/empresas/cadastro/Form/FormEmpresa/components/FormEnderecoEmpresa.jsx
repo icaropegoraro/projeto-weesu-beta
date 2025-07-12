@@ -72,13 +72,19 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 <Controller
                     name="empresa.endereco.cep"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'CEP é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             label="CEP"
                             name="cep"
                             fullWidth
                             value={value || ''}
                             onChange={(event) => maskHandler(maskCEP)(event, onChange)}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.cep")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.street"])}
                         />
@@ -90,13 +96,19 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 <Controller
                     name="empresa.endereco.street"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Logradouro é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
-                        label="Rua"
+                        label="Logradouro"
                         name="street"
                         fullWidth
                         value={value || ''}
                         onChange={onChange}
+                        onBlur={onBlur}
+                        error={!!error}
+                        helperText={error?.message}
                         inputRef={getRefs("empresa.endereco.street")}
                         onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.streetNumber"])}
                         />
@@ -108,13 +120,19 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 <Controller
                     name="empresa.endereco.streetNumber"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Número é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             label="Número"
                             name="streetNumber"
                             fullWidth
                             value={value || ''}
                             onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.streetNumber")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.complemento"])}
                         />
@@ -144,13 +162,19 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 <Controller
                     name="empresa.endereco.bairro"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Bairro é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             label="Bairro"
                             name="bairro"
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.bairro")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.uf"])}
                         />
@@ -162,13 +186,19 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 <Controller
                     name="empresa.endereco.uf"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Estado é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             label="Estado"
                             name="uf"
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.uf")}
                             onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cidade"])}
                             select
@@ -198,7 +228,10 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 <Controller
                     name="empresa.endereco.cidade"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Cidade é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             disabled={!uf}
                             label="Cidade"
@@ -206,6 +239,9 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.cidade")}
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter') {
