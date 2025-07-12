@@ -72,13 +72,19 @@ export const FormEnderecoRepresentante = ({estados}) => {
                 <Controller
                     name="representante.endereco.cep"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'CEP é obrigatório'
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             fullWidth
                             label="CEP"
                             name="cep"
                             value={value || ''}
                             onChange={event => maskHandler(maskCEP)(event, onChange)}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("representante.endereco.cep")}
                             onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.street"])}
                         />
@@ -89,13 +95,19 @@ export const FormEnderecoRepresentante = ({estados}) => {
                 <Controller
                     name="representante.endereco.street"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Logradouro é obrigatório'
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             fullWidth
-                            label="Rua"
+                            label="Logradouro"
                             name="street"
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("representante.endereco.street")}
                             onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.streetNumber"])}
                         />
@@ -106,13 +118,19 @@ export const FormEnderecoRepresentante = ({estados}) => {
                 <Controller
                     name="representante.endereco.streetNumber"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Número é obrigatório'
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             fullWidth
                             label="Número"
                             name="streetNumber"
                             value={value || ''}
                             onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("representante.endereco.streetNumber")}
                             onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.complemento"])}
                         />
@@ -142,13 +160,19 @@ export const FormEnderecoRepresentante = ({estados}) => {
                 <Controller
                     name="representante.endereco.bairro"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Bairro é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             fullWidth
                             label="Bairro"
                             name="bairro"
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("representante.endereco.bairro")}
                             onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.uf"])}
                         />
@@ -160,13 +184,19 @@ export const FormEnderecoRepresentante = ({estados}) => {
                 <Controller
                     name="representante.endereco.uf"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Estado é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             fullWidth
                             label="Estado"
                             name="uf"
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("representante.endereco.uf")}
                             onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.cidade"])}
                             select
@@ -196,7 +226,10 @@ export const FormEnderecoRepresentante = ({estados}) => {
                 <Controller
                     name="representante.endereco.cidade"
                     control={control}
-                    render={({ field: { onChange, value } }) => (
+                    rules={{
+                        required: 'Cidade é obrigatório',
+                    }}
+                    render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             disabled={!uf}
                             fullWidth
@@ -204,6 +237,9 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             name="cidade"
                             value={value || ''}
                             onChange={onChange}
+                            onBlur={onBlur}
+                            error={!!error}
+                            helperText={error?.message}
                             inputRef={getRefs("representante.endereco.cidade")}
                             select
                             slotProps={{
