@@ -8,6 +8,10 @@ import React, { useRef, useState }  from "react"
 import dayjs from "dayjs"
 import { vencimento, regimeTributario, formatoConstituicao } from "../../../../../../shared/components/formDataOptions"
 import { cnpjValidator } from "../../../../../../shared/utils/validators/cnpjValidator"
+import { emailValidator } from "../../../../../../shared/utils/validators/emailValidator"
+import { numberPhoneValidator } from "../../../../../../shared/utils/validators/numberPhoneValidator"
+import { pastOrTodayDateValidator } from "../../../../../../shared/utils/validators/pastOrTodayDateValidator"
+import { cnaeValidator } from "../../../../../../shared/utils/validators/cnaeValidator"
 
 
 export const FormDadosEmpresa = () => {
@@ -159,6 +163,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'Email da empresa é obrigatório',
+            validate: emailValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -184,6 +189,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'Número de telefone é obrigatório',
+            validate: numberPhoneValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -266,6 +272,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'Data de abertura é obrigatório',
+            validate: pastOrTodayDateValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -298,6 +305,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'CNAE é obrigatório',
+            validate: cnaeValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField

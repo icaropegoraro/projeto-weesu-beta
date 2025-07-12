@@ -10,6 +10,7 @@ import React, { useRef } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 import dayjs from 'dayjs'
 import { maskOnlyLetters } from '../../../../../../shared/utils/masks/maskOnlyLetters'
+import { cpfValidator } from '../../../../../../shared/utils/validators/cpfValidator'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
@@ -101,6 +102,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'CPF é obrigatório',
+            validate: cpfValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField

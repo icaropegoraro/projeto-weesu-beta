@@ -6,6 +6,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
 import axios from 'axios'
+import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
 
 export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
     const { control, setValue } = useFormContext()
@@ -74,6 +75,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     control={control}
                     rules={{
                         required: 'CEP é obrigatório',
+                        validate: cepValidator
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
