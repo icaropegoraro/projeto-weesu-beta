@@ -32,13 +32,19 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.nome"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Nome completo é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Nome completo"
               name="nome"
               value={value || ''}
               onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.nome")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeSocial"])}
             />
@@ -49,13 +55,16 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.nomeSocial"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Nome social (não obrigatório)"
               name="nomeSocial"
               value={value || ''}
               onChange={event => maskHandler(maskOnlyLetters, 70)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.nomeSocial")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.rg"])}
             />
@@ -66,13 +75,19 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.rg"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'RG é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="RG"
               name="rg"
               value={value || ''}
               onChange={event => maskHandler(maskRG)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.rg")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.cpf"])}
             />
@@ -84,13 +99,19 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.cpf"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'CPF é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="CPF"
               name="cpf"
               value={value || ''}
               onChange={event => maskHandler(maskCPF)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.cpf")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.dataNascimento"])}
             />
@@ -101,7 +122,10 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.dataNascimento"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Data de nascimento é obrigatória',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 label="Data de nascimento"
@@ -109,6 +133,9 @@ export const FormDadosRepresentante = () => {
                 maxDate={currentDate}
                 value={value || null}
                 onChange={onChange}
+                onBlur={onBlur}
+                error={!!error}
+                helperText={error?.message}
                 slotProps={{
                   textField: {
                     fullWidth: true,
@@ -126,13 +153,19 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.nomeMaeRepresentante"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Nome da mãe é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Nome da mãe"
               name="nomeMaeRepresentante"
               value={value || ''}
               onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.nomeMaeRepresentante")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.ufEmissao"])}
             />
@@ -144,13 +177,19 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.ufEmissao"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'UF de emissão do documento é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="UF de emissão"
               name="ufEmissao"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.ufEmissao")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.email"])}
             />
@@ -161,13 +200,19 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.email"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Email é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Email"
               name="email"
               value={value || ''}
               onChange={onChange}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.email")}
               onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.telefone"])}
             />
@@ -178,15 +223,20 @@ export const FormDadosRepresentante = () => {
         <Controller
           name="representante.dados.telefone"
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Número de telefone é obrigatório',
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
               label="Telefone"
               name="telefone"
               value={value || ''}
               onChange={event => maskHandler(maskNumberPhone)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
               inputRef={getRefs("representante.dados.telefone")}
-              onKeyDown={(event) => handleEnterKeyPress(event, null)} // último campo, sem próximo
             />
           )}
         />
