@@ -276,13 +276,13 @@ export const FormDadosEmpresa = () => {
                 maxDate={currentDate}
                 value={value}
                 onChange={onChange}
-                onBlur={onBlur}
-                error={!!error}
-                helperText={error?.message}
                 slotProps={{
                   textField: {
                     fullWidth: true,
                     inputRef: getRefs("empresa.dados.dataAbertura"),
+                    onBlur,
+                    error: !!error,
+                    helperText: error?.message,
                     onKeyDown: (event) =>
                       handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.cnae"]),
                   },
