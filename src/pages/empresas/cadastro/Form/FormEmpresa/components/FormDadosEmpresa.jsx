@@ -7,6 +7,7 @@ import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterK
 import React, { useRef, useState }  from "react"
 import dayjs from "dayjs"
 import { vencimento, regimeTributario, formatoConstituicao } from "../../../../../../shared/components/formDataOptions"
+import { cnpjValidator } from "../../../../../../shared/utils/validators/cnpjValidator"
 
 
 export const FormDadosEmpresa = () => {
@@ -37,11 +38,9 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'CNPJ é obrigatório',
-            validate: (value) => {
-              const numericValue = value.replace(/\D/g, '');
-              return numericValue.length === 14 || 'CNPJ deve conter 14 números';
+            validate: cnpjValidator
             }
-          }}
+          }
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
