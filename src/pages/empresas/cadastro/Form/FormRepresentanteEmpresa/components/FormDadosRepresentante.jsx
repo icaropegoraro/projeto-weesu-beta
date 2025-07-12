@@ -133,13 +133,13 @@ export const FormDadosRepresentante = () => {
                 maxDate={currentDate}
                 value={value || null}
                 onChange={onChange}
-                onBlur={onBlur}
-                error={!!error}
-                helperText={error?.message}
                 slotProps={{
                   textField: {
                     fullWidth: true,
                     inputRef: getRefs("representante.dados.dataNascimento"),
+                    onBlur,
+                    error: !!error,
+                    helperText: error?.message,
                     onKeyDown: (event) =>
                       handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeMaeRepresentante"]),
                   },

@@ -103,7 +103,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.nomeFantasia")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.inscricaoEstadual"])
+              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current[ isencaoIE ? 'empresa.dados.email' : 'empresa.dados.inscricaoEstadual' ])
               }
             />
           )}
