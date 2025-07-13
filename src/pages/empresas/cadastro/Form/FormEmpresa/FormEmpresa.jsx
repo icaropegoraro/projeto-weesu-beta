@@ -1,14 +1,22 @@
-import { Typography, Grid } from "@mui/material"
-import { FormDadosEmpresa } from "./components/FormDadosEmpresa"
-import { FormEnderecoEmpresa } from "./components/FormEnderecoEmpresa"
+import { Typography, Grid } from '@mui/material'
+import { FormDadosEmpresa } from './components/FormDadosEmpresa'
+import { FormEnderecoEmpresa } from './components/FormEnderecoEmpresa'
 
-export const FormEmpresa = ({ onNextStep }) => {
+export const FormEmpresa = ({ estados, onNextStep }) => {
     return (
         <Grid container spacing={2}>
-            <Typography variant="h5" gutterBottom>Dados da Empresa</Typography>
-            <FormDadosEmpresa />
-            <Typography variant="h5" gutterBottom>Dados da Empresa</Typography>
-            <FormEnderecoEmpresa onNextStep={onNextStep}/>
+            <Grid size={{ xs: 12 }}>
+                <Typography variant='h5' gutterBottom>Dados da empresa</Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <FormDadosEmpresa />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <Typography variant='h5' gutterBottom>Endereço da empresa</Typography>
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <FormEnderecoEmpresa estados={estados} onNextStep={onNextStep}/>
+            </Grid>
         </Grid>
     )
 }

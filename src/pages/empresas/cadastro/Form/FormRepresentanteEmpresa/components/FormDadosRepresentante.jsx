@@ -1,75 +1,93 @@
 import { useFormContext, Controller } from 'react-hook-form'
 import { TextField, Grid } from '@mui/material'
-import { maskHandler } from '../../../../../../shared/utils/maskHandler'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
+import { maskHandler } from '../../../../../../shared/utils/masks/maskHandler'
 import { maskCPF } from '../../../../../../shared/utils/masks/maskCPF'
 import { maskRG } from '../../../../../../shared/utils/masks/maskRG'
 import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
 import React, { useRef } from 'react'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
+import dayjs from 'dayjs'
+import { maskOnlyLetters } from '../../../../../../shared/utils/masks/maskOnlyLetters'
+import { cpfValidator } from '../../../../../../shared/utils/validators/cpfValidator'
+import { rgValidator } from '../../../../../../shared/utils/validators/rgValidator'
+import { pastOrTodayDateValidator } from '../../../../../../shared/utils/validators/pastOrTodayDateValidator'
+import { emailValidator } from '../../../../../../shared/utils/validators/emailValidator'
+import { numberPhoneValidator } from '../../../../../../shared/utils/validators/numberPhoneValidator'
+import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
 
-  const TextFieldRefs = useRef({})
-
-  const getRefs = (nome) => {
-    if (!TextFieldRefs.current[nome]) {
-        TextFieldRefs.current[nome] = React.createRef()
-    }
-    return TextFieldRefs.current[nome]
-  }
+  const currentDate = dayjs()
 
   return (
     <Grid container spacing={2}>
+      
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
-          name="representante.dados.nome"
+          name='representante.dados.nome'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Nome completo é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Nome"
-              name="nome"
+              label='Nome completo'
+              name='nome'
               value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("representante.dados.nome")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeSocial"])}
+              onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.nome')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.nomeSocial'))}
             />
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="representante.dados.nomeSocial"
+          name='representante.dados.nomeSocial'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Nome social"
-              name="nomeSocial"
+              label='Nome social (não obrigatório)'
+              name='nomeSocial'
               value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("representante.dados.nomeSocial")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.rg"])}
+              onChange={event => maskHandler(maskOnlyLetters, 70)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.nomeSocial')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.rg'))}
             />
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="representante.dados.rg"
+          name='representante.dados.rg'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'RG é obrigatório',
+            validate: rgValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="RG"
-              name="rg"
+              label='RG'
+              name='rg'
               value={value || ''}
               onChange={event => maskHandler(maskRG)(event, onChange)}
-              inputRef={getRefs("representante.dados.rg")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.cpf"])}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.rg')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.cpf'))}
             />
           )}
         />
@@ -77,53 +95,79 @@ export const FormDadosRepresentante = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="representante.dados.cpf"
+          name='representante.dados.cpf'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'CPF é obrigatório',
+            validate: cpfValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="CPF"
-              name="cpf"
+              label='CPF'
+              name='cpf'
               value={value || ''}
               onChange={event => maskHandler(maskCPF)(event, onChange)}
-              inputRef={getRefs("representante.dados.cpf")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.dataNascimento"])}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.cpf')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.dataNascimento'))}
             />
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="representante.dados.dataNascimento"
+          name='representante.dados.dataNascimento'
           control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              fullWidth
-              label="Data de nascimento"
-              name="dataNascimento"
-              value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("representante.dados.dataNascimento")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeMaeRepresentante"])}
-            />
+          rules={{
+            required: 'Data de nascimento é obrigatória',
+            validate: pastOrTodayDateValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label='Data de nascimento'
+                format='DD/MM/YYYY'
+                maxDate={currentDate}
+                value={value || null}
+                onChange={onChange}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    inputRef: getRefs('representante.dados.dataNascimento'),
+                    onBlur,
+                    error: !!error,
+                    helperText: error?.message,
+                    onKeyDown: (event) =>
+                      handleEnterKeyPress(event, getRefValue('representante.dados.nomeMaeRepresentante'))
+                  }
+                }}
+              />
+            </LocalizationProvider>
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
-          name="representante.dados.nomeMaeRepresentante"
+          name='representante.dados.nomeMaeRepresentante'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Nome da mãe é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Nome da mãe"
-              name="nomeMaeRepresentante"
+              label='Nome da mãe'
+              name='nomeMaeRepresentante'
               value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("representante.dados.nomeMaeRepresentante")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.ufEmissao"])}
+              onChange={event => maskHandler(maskOnlyLetters, 150)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.nomeMaeRepresentante')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.ufEmissao'))}
             />
           )}
         />
@@ -131,53 +175,71 @@ export const FormDadosRepresentante = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="representante.dados.ufEmissao"
+          name='representante.dados.ufEmissao'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'UF de emissão do documento é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="UF de emissão"
-              name="ufEmissao"
+              label='UF de emissão'
+              name='ufEmissao'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("representante.dados.ufEmissao")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.email"])}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.ufEmissao')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.email'))}
             />
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
-          name="representante.dados.email"
+          name='representante.dados.email'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Email é obrigatório',
+            validate: emailValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Email"
-              name="email"
+              label='Email'
+              name='email'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("representante.dados.email")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.telefone"])}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.email')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.dados.telefone'))}
             />
           )}
         />
       </Grid>
-
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="representante.dados.telefone"
+          name='representante.dados.telefone'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Número de telefone é obrigatório',
+            validate: numberPhoneValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Telefone"
-              name="telefone"
+              label='Telefone'
+              name='telefone'
               value={value || ''}
               onChange={event => maskHandler(maskNumberPhone)(event, onChange)}
-              inputRef={getRefs("representante.dados.telefone")}
-              onKeyDown={(event) => handleEnterKeyPress(event, null)} // último campo, sem próximo
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('representante.dados.telefone')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('representante.endereco.cep'))}            
             />
           )}
         />

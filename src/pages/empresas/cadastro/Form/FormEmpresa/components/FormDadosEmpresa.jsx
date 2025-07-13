@@ -1,39 +1,50 @@
-import { useFormContext, Controller } from "react-hook-form"
-import { TextField, Grid } from "@mui/material"
-import { maskHandler } from "../../../../../../shared/utils/maskHandler"
-import { maskCNPJ } from "../../../../../../shared/utils/masks/maskCNPJ"
-import { maskNumberPhone } from "../../../../../../shared/utils/masks/maskNumberPhone"
-import { maskCNAE } from "../../../../../../shared/utils/masks/maskCNAE"
-import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterKeyPress"
-import React, { useRef }  from "react"
+import { useFormContext, Controller, useWatch } from 'react-hook-form'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { TextField, Grid, MenuItem, Checkbox, InputAdornment, FormControlLabel } from '@mui/material'
+import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
+import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
+import { useState }  from 'react'
+import dayjs from 'dayjs'
+import { vencimento, regimeTributario, formatoConstituicao } from '../../../../../../shared/components/formDataOptions'
+import { cnpjValidator } from '../../../../../../shared/utils/validators/cnpjValidator'
+import { emailValidator } from '../../../../../../shared/utils/validators/emailValidator'
+import { numberPhoneValidator } from '../../../../../../shared/utils/validators/numberPhoneValidator'
+import { pastOrTodayDateValidator } from '../../../../../../shared/utils/validators/pastOrTodayDateValidator'
+import { cnaeValidator } from '../../../../../../shared/utils/validators/cnaeValidator'
+import { getRefs, getRefValue } from '../../../FormRefs'
+
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
 
-  const TextFieldRefs = useRef({}) 
+  const currentDate = dayjs()
 
-  const getRefs = (nome) => {
-    if (!TextFieldRefs.current[nome]) {
-      TextFieldRefs.current[nome] = React.createRef()
-    }
-    return TextFieldRefs.current[nome]
-  }
+  const isencaoIE = useWatch({ name: 'empresa.dados.isencaoIE' }) ?? false
 
   return (
     <Grid container spacing={2}>
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.cnpj"
+          name='empresa.dados.cnpj'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'CNPJ é obrigatório',
+            validate: cnpjValidator
+            }
+          }
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="CNPJ"
-              name="cnpj"
+              label='CNPJ'
+              name='cnpj'
               value={value || ''}
               onChange={(event) => maskHandler(maskCNPJ)(event, onChange)}
-              inputRef={getRefs("empresa.dados.cnpj")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.razaoSocial"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.cnpj')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.razaoSocial'))
               }
             />
           )}
@@ -42,17 +53,23 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
-          name="empresa.dados.razaoSocial"
+          name='empresa.dados.razaoSocial'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Razão social é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Razão Social"
-              name="razaoSocial"
+              label='Razão social'
+              name='razaoSocial'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.razaoSocial")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.nomeFantasia"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.razaoSocial')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.nomeFantasia'))
               }
             />
           )}
@@ -61,17 +78,23 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.nomeFantasia"
+          name='empresa.dados.nomeFantasia'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Nome fantasia é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Nome Fantasia"
-              name="nomeFantasia"
+              label='Nome fantasia'
+              name='nomeFantasia'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.nomeFantasia")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.inscricaoEstadual"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.nomeFantasia')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue( isencaoIE ? 'empresa.dados.email' : 'empresa.dados.inscricaoEstadual' ))
               }
             />
           )}
@@ -80,36 +103,73 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.inscricaoEstadual"
+          name='empresa.dados.inscricaoEstadual'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={!isencaoIE ? { required: 'Inscrição estadual é obrigatório'} : {}}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
+              disabled={isencaoIE}
               fullWidth
-              label="Inscrição Estadual"
-              name="inscricaoEstadual"
+              label='Inscrição estadual'
+              name='inscricaoEstadual'
               value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("empresa.dados.inscricaoEstadual")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.email"])
+              onChange={event => maskHandler(maskOnlyNumbers, 14)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.inscricaoEstadual')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.email'))
               }
+              slotProps={{
+                input: {
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <Controller
+                        name='empresa.dados.isencaoIE'
+                        control={control}
+                        defaultValue={false}
+                        render={({ field }) => (
+                          <FormControlLabel
+                            label='Isento'
+                            control={
+                              <Checkbox
+                                checked={field.value}
+                                onChange={(e) => field.onChange(e.target.checked)}
+                              />
+                            }
+                          />
+                        )}
+                      />
+                    </InputAdornment>
+                  )
+                }
+              }}
             />
+              
           )}
         />
       </Grid>
 
       <Grid size={{ xs: 12, md: 6 }}>
         <Controller
-          name="empresa.dados.email"
+          name='empresa.dados.email'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Email da empresa é obrigatório',
+            validate: emailValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Email"
-              name="email"
+              label='Email'
+              name='email'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.email")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.telefone"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.email')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.telefone'))
               }
             />
           )}
@@ -118,17 +178,24 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.telefone"
+          name='empresa.dados.telefone'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Número de telefone é obrigatório',
+            validate: numberPhoneValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Telefone"
-              name="telefone"
+              label='Telefone'
+              name='telefone'
               value={value || ''}
               onChange={(event) => maskHandler(maskNumberPhone)(event, onChange)}
-              inputRef={getRefs("empresa.dados.telefone")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.qtdClientes"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.telefone')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.qtdClientes'))
               }
             />
           )}
@@ -137,74 +204,138 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.qtdClientes"
+          name='empresa.dados.qtdClientes'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Quantidade de clientes é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Quantidade de Clientes"
-              name="qtdClientes"
+              label='Quantidade de clientes'
+              name='qtdClientes'
+              value={value || ''}
+              onChange={(event) => maskHandler(maskOnlyNumbers, 8)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.qtdClientes')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.vencimento'))
+              }
+            />
+          )}
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name='empresa.dados.vencimento'
+          control={control}
+          rules={{
+            required: 'Vencimento é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+            <TextField
+              select
+              fullWidth
+              label='Vencimento'
+              name='vencimento'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.qtdClientes")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.vencimento"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.vencimento')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.dataAbertura'))
               }
-            />
+            >
+              {vencimento.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       </Grid>
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.vencimento"
+          name='empresa.dados.dataAbertura'
           control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              fullWidth
-              label="Vencimento"
-              name="vencimento"
-              value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("empresa.dados.vencimento")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.dataAbertura"])
-              }
-            />
+          rules={{
+            required: 'Data de abertura é obrigatório',
+            validate: pastOrTodayDateValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label='Data de abertura'
+                format='DD/MM/YYYY'
+                maxDate={currentDate}
+                value={value}
+                onChange={onChange}
+                slotProps={{
+                  textField: {
+                    fullWidth: true,
+                    inputRef: getRefs('empresa.dados.dataAbertura'),
+                    onBlur,
+                    error: !!error,
+                    helperText: error?.message,
+                    onKeyDown: (event) =>
+                      handleEnterKeyPress(event, getRefValue('empresa.dados.cnae'))
+                  }
+                }}
+              />
+            </LocalizationProvider>
           )}
         />
       </Grid>
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.dataAbertura"
+          name='empresa.dados.cnae'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'CNAE é obrigatório',
+            validate: cnaeValidator
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Data de Abertura"
-              name="dataAbertura"
-              value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("empresa.dados.dataAbertura")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.cnae"])
-              }
-            />
-          )}
-        />
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 3 }}>
-        <Controller
-          name="empresa.dados.cnae"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              fullWidth
-              label="CNAE"
-              name="cnae"
+              label='CNAE'
+              name='cnae'
               value={value || ''}
               onChange={(event) => maskHandler(maskCNAE)(event, onChange)}
-              inputRef={getRefs("empresa.dados.cnae")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.faturamento"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.cnae')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.faturamento'))}
+            />
+          )}
+        />
+      </Grid>
+
+      <Grid size={{ xs: 12, md: 3 }}>
+        <Controller
+          name='empresa.dados.faturamento'
+          control={control}
+          rules={{
+            required: 'Faturamento é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
+            <TextField
+              fullWidth
+              label='Faturamento (R$)'
+              name='faturamento'
+              value={value || ''}
+              onChange={(event) => maskHandler(maskMoney)(event, onChange)}
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.faturamento')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.tipoAtuacao'))
               }
             />
           )}
@@ -213,17 +344,23 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.faturamento"
+          name='empresa.dados.tipoAtuacao'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Tipo de atuação é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label="Faturamento"
-              name="faturamento"
+              label='Tipo de atuação'
+              name='tipoAtuacao'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.faturamento")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.tipoAtuacao"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.tipoAtuacao')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.regimeTributario'))
               }
             />
           )}
@@ -232,57 +369,64 @@ export const FormDadosEmpresa = () => {
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.tipoAtuacao"
+          name='empresa.dados.regimeTributario'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Regime tributário é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
+              select
               fullWidth
-              label="Tipo de Atuação"
-              name="tipoAtuacao"
+              label='Regime tributário'
+              name='regimeTributario'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.tipoAtuacao")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.regimeTributario"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.regimeTributario')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.dados.formatoConstituicao'))
               }
-            />
+            >
+              {regimeTributario.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       </Grid>
 
       <Grid size={{ xs: 12, md: 3 }}>
         <Controller
-          name="empresa.dados.regimeTributario"
+          name='empresa.dados.formatoConstituicao'
           control={control}
-          render={({ field: { onChange, value } }) => (
+          rules={{
+            required: 'Formato de constituição é obrigatório'
+          }}
+          render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
+              select
               fullWidth
-              label="Regime Tributário"
-              name="regimeTributario"
+              label='Formato de constituição'
+              name='formatoConstituicao'
               value={value || ''}
               onChange={onChange}
-              inputRef={getRefs("empresa.dados.regimeTributario")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.formatoConstituicao"])
+              onBlur={onBlur}
+              error={!!error}
+              helperText={error?.message}
+              inputRef={getRefs('empresa.dados.formatoConstituicao')}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.cep'))
               }
-            />
-          )}
-        />
-      </Grid>
-
-      <Grid size={{ xs: 12, md: 3 }}>
-        <Controller
-          name="empresa.dados.formatoConstituicao"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextField
-              fullWidth
-              label="Formato de constituição"
-              name="formatoConstituicao"
-              value={value || ''}
-              onChange={onChange}
-              inputRef={getRefs("empresa.dados.formatoConstituicao")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cep"])
-              }
-            />
+            >
+              {formatoConstituicao.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       </Grid>
