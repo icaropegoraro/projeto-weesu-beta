@@ -47,41 +47,48 @@ export const CadastroEmpresa = () => {
   }
 
   return (
-    <Grid container spacing={2}>
-      <FormProvider {...methods}>
-        <Grid size={{xs: 12}} marginTop={'10px'}>
-          <Stepper 
-            activeStep={currentStep} 
-            alternativeLabel
-            nonLinear
-          >
-            {steps.map((label, stepNumber) => (
-              <Step key={label}>
-                <StepButton onClick={() => goToStep(stepNumber)}>{label}</StepButton>
-              </Step>
-            ))}
-          </Stepper>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)} noValidate>
+        <Grid container spacing={2}>
+          <Grid size={{xs: 12}} marginTop={'10px'}>
+            <Stepper 
+              activeStep={currentStep} 
+              alternativeLabel
+              nonLinear
+            >
+              {steps.map((label, stepNumber) => (
+                <Step key={label}>
+                  <StepButton onClick={() => goToStep(stepNumber)}>{label}</StepButton>
+                </Step>
+              ))}
+            </Stepper>
+          </Grid>
+            
+          {stepComponents[currentStep]}
+
+          <Grid container size={{xs: 12}} justifyContent={'center'} spacing={2}> 
+            <Button 
+              variant='outlined' 
+              onClick={returnStep} 
+              disabled={isFirstStep}
+            >
+              Voltar
+            </Button>
+
+            <Button
+              type="button"
+              variant="outlined"
+              onClick={
+                isLastStep
+                  ? methods.handleSubmit(onSubmit)
+                  : nextStep
+              }
+            >
+              {isLastStep ? 'Finalizar' : 'Próximo'}
+            </Button>
+          </Grid>
         </Grid>
-          
-        {stepComponents[currentStep]}
-
-        <Grid container size={{xs: 12}} justifyContent={'center'} spacing={2}> 
-          <Button 
-            variant='outlined' 
-            onClick={returnStep} 
-            disabled={isFirstStep}
-          >
-            Voltar
-          </Button>
-
-          <Button 
-            variant='outlined'
-            onClick={isLastStep ? methods.handleSubmit(onSubmit) : nextStep}
-          >
-            {isLastStep ? 'Finalizar' : 'Próximo'}
-          </Button>
-        </Grid> 
-      </FormProvider>
-    </Grid>
+      </form>
+    </FormProvider>
   )
 }

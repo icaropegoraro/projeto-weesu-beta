@@ -1,4 +1,4 @@
-import { useFormContext, Controller } from 'react-hook-form'
+import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { TextField, Grid, MenuItem, Checkbox, InputAdornment, FormControlLabel } from '@mui/material'
@@ -20,11 +20,7 @@ export const FormDadosEmpresa = () => {
 
   const currentDate = dayjs()
 
-  const [isencaoIE, setIsencaoIE] = useState(false)
-
-  const changeIE = () => {
-    setIsencaoIE(!isencaoIE)
-  }
+  const isencaoIE = useWatch({ name: 'empresa.dados.isencaoIE' }) ?? false
 
   return (
     <Grid container spacing={2}>
@@ -128,16 +124,22 @@ export const FormDadosEmpresa = () => {
                 input: {
                   endAdornment: (
                     <InputAdornment position='end'>
-                      <FormControlLabel
-                        label='Isento'
-                        control={
-                          <Checkbox
-                            checked={isencaoIE}
-                            onChange={changeIE}
+                      <Controller
+                        name='empresa.dados.isencaoIE'
+                        control={control}
+                        defaultValue={false}
+                        render={({ field }) => (
+                          <FormControlLabel
+                            label='Isento'
+                            control={
+                              <Checkbox
+                                checked={field.value}
+                                onChange={(e) => field.onChange(e.target.checked)}
+                              />
+                            }
                           />
-                        }
-                      >      
-                      </FormControlLabel>
+                        )}
+                      />
                     </InputAdornment>
                   )
                 }
