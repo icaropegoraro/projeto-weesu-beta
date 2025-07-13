@@ -351,7 +351,7 @@ export const FormDadosEmpresa = () => {
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
               fullWidth
-              label='Tipo de Atuação'
+              label='Tipo de atuação'
               name='tipoAtuacao'
               value={value || ''}
               onChange={onChange}
@@ -377,7 +377,7 @@ export const FormDadosEmpresa = () => {
             <TextField
               select
               fullWidth
-              label='Regime Tributário'
+              label='Regime tributário'
               name='regimeTributario'
               value={value || ''}
               onChange={onChange}
