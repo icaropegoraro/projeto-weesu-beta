@@ -7,18 +7,10 @@ import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterK
 import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
 import axios from 'axios'
 import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
+import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
     const { control, setValue, setError, clearErrors } = useFormContext()
-
-    const TextFieldRefs = useRef({}) 
-    
-    const getRefs = (nome) => {
-        if (!TextFieldRefs.current[nome]) {
-          TextFieldRefs.current[nome] = React.createRef()
-        }
-        return TextFieldRefs.current[nome]
-    }
 
     const cep = useWatch({ control, name: "empresa.endereco.cep" })
     const uf = useWatch({ control, name: "empresa.endereco.uf" })
@@ -96,7 +88,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.cep")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.street"])}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.street"))}
                         />
                     )}
                 />
@@ -120,7 +112,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                         error={!!error}
                         helperText={error?.message}
                         inputRef={getRefs("empresa.endereco.street")}
-                        onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.streetNumber"])}
+                        onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.streetNumber"))}
                         />
                     )}
                 />
@@ -144,7 +136,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.streetNumber")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.complemento"])}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.complemento"))}
                         />
                     )}
                 />
@@ -162,7 +154,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                             value={value || ''}
                             onChange={onChange}
                             inputRef={getRefs("empresa.endereco.complemento")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.bairro"])}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.bairro"))}
                         />
                     )}
                 />
@@ -186,7 +178,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.bairro")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.uf"])}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.uf"))}
                         />
                     )}
                 />
@@ -210,7 +202,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("empresa.endereco.uf")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cidade"])}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.cidade"))}
                             select
                             slotProps={{
                                 select: {

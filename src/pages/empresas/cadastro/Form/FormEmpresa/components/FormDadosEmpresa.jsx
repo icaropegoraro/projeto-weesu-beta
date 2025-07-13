@@ -4,7 +4,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { TextField, Grid, MenuItem, Checkbox, InputAdornment, FormControlLabel } from "@mui/material"
 import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
 import { handleEnterKeyPress } from "../../../../../../shared/hooks/handleEnterKeyPress"
-import React, { useRef, useState }  from "react"
+import { useState }  from "react"
 import dayjs from "dayjs"
 import { vencimento, regimeTributario, formatoConstituicao } from "../../../../../../shared/components/formDataOptions"
 import { cnpjValidator } from "../../../../../../shared/utils/validators/cnpjValidator"
@@ -12,19 +12,11 @@ import { emailValidator } from "../../../../../../shared/utils/validators/emailV
 import { numberPhoneValidator } from "../../../../../../shared/utils/validators/numberPhoneValidator"
 import { pastOrTodayDateValidator } from "../../../../../../shared/utils/validators/pastOrTodayDateValidator"
 import { cnaeValidator } from "../../../../../../shared/utils/validators/cnaeValidator"
+import { getRefs, getRefValue } from '../../../FormRefs'
 
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
-
-  const TextFieldRefs = useRef({}) 
-
-  const getRefs = (nome) => {
-    if (!TextFieldRefs.current[nome]) {
-      TextFieldRefs.current[nome] = React.createRef()
-    }
-    return TextFieldRefs.current[nome]
-  }
 
   const currentDate = dayjs()
 
@@ -56,7 +48,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.cnpj")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.razaoSocial"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.razaoSocial"))
               }
             />
           )}
@@ -81,7 +73,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.razaoSocial")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.nomeFantasia"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.nomeFantasia"))
               }
             />
           )}
@@ -106,7 +98,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.nomeFantasia")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current[ isencaoIE ? 'empresa.dados.email' : 'empresa.dados.inscricaoEstadual' ])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue( isencaoIE ? 'empresa.dados.email' : 'empresa.dados.inscricaoEstadual' ))
               }
             />
           )}
@@ -130,7 +122,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.inscricaoEstadual")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.email"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.email"))
               }
               slotProps={{
                 input: {
@@ -176,7 +168,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.email")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.telefone"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.telefone"))
               }
             />
           )}
@@ -202,7 +194,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.telefone")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.qtdClientes"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.qtdClientes"))
               }
             />
           )}
@@ -227,7 +219,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.qtdClientes")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.vencimento"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.vencimento"))
               }
             />
           )}
@@ -253,7 +245,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.vencimento")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.dataAbertura"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.dataAbertura"))
               }
             >
               {vencimento.map((option) => (
@@ -290,7 +282,7 @@ export const FormDadosEmpresa = () => {
                     error: !!error,
                     helperText: error?.message,
                     onKeyDown: (event) =>
-                      handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.cnae"]),
+                      handleEnterKeyPress(event, getRefValue("empresa.dados.cnae")),
                   },
                 }}
               />
@@ -318,7 +310,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.cnae")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.faturamento"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.faturamento"))
               }
             />
           )}
@@ -343,7 +335,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.faturamento")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.tipoAtuacao"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.tipoAtuacao"))
               }
             />
           )}
@@ -368,7 +360,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.tipoAtuacao")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.regimeTributario"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.regimeTributario"))
               }
             />
           )}
@@ -394,7 +386,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.regimeTributario")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.dados.formatoConstituicao"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.dados.formatoConstituicao"))
               }
             >
               {regimeTributario.map((option) => (
@@ -426,7 +418,7 @@ export const FormDadosEmpresa = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("empresa.dados.formatoConstituicao")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["empresa.endereco.cep"])
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.cep"))
               }
             >
               {formatoConstituicao.map((option) => (

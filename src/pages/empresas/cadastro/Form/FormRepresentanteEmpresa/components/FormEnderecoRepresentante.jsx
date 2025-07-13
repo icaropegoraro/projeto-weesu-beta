@@ -6,18 +6,11 @@ import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNu
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
+import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
+import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormEnderecoRepresentante = ({estados}) => {
     const { control, setValue, setError, clearErrors } = useFormContext()
-
-    const TextFieldRefs = useRef({})
-    
-        const getRefs = (nome) => {
-            if (!TextFieldRefs.current[nome]) {
-                TextFieldRefs.current[nome] = React.createRef()
-            }
-            return TextFieldRefs.current[nome]
-        }
 
     const cep = useWatch({ control, name: "representante.endereco.cep" })
     const uf = useWatch({ control, name: "representante.endereco.uf" })
@@ -81,7 +74,8 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     name="representante.endereco.cep"
                     control={control}
                     rules={{
-                        required: 'CEP é obrigatório'
+                        required: 'CEP é obrigatório',
+                        validate: cepValidator
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -94,7 +88,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("representante.endereco.cep")}
-                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.street"])}
+                            onKeyDown={event => handleEnterKeyPress(event, getRefValue("representante.endereco.street"))}
                         />
                     )}
                 />
@@ -117,7 +111,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("representante.endereco.street")}
-                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.streetNumber"])}
+                            onKeyDown={event => handleEnterKeyPress(event, getRefValue("representante.endereco.streetNumber"))}
                         />
                     )}
                 />
@@ -140,7 +134,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("representante.endereco.streetNumber")}
-                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.complemento"])}
+                            onKeyDown={event => handleEnterKeyPress(event, getRefValue("representante.endereco.complemento"))}
                         />
                     )}
                 />
@@ -158,7 +152,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             value={value || ''}
                             onChange={onChange}
                             inputRef={getRefs("representante.endereco.complemento")}
-                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.bairro"])}
+                            onKeyDown={event => handleEnterKeyPress(event, getRefValue("representante.endereco.bairro"))}
                         />
                     )}
                 />
@@ -169,7 +163,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     name="representante.endereco.bairro"
                     control={control}
                     rules={{
-                        required: 'Bairro é obrigatório',
+                        required: 'Bairro é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -182,7 +176,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("representante.endereco.bairro")}
-                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.uf"])}
+                            onKeyDown={event => handleEnterKeyPress(event, getRefValue("representante.endereco.uf"))}
                         />
                     )}
                 />
@@ -206,7 +200,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                             error={!!error}
                             helperText={error?.message}
                             inputRef={getRefs("representante.endereco.uf")}
-                            onKeyDown={event => handleEnterKeyPress(event, TextFieldRefs.current["representante.endereco.cidade"])}
+                            onKeyDown={event => handleEnterKeyPress(event, getRefValue("representante.endereco.cidade"))}
                             select
                                 slotProps={{
                                     select: {

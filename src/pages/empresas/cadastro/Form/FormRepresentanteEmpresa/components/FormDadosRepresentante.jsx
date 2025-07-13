@@ -11,18 +11,14 @@ import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterK
 import dayjs from 'dayjs'
 import { maskOnlyLetters } from '../../../../../../shared/utils/masks/maskOnlyLetters'
 import { cpfValidator } from '../../../../../../shared/utils/validators/cpfValidator'
+import { rgValidator } from '../../../../../../shared/utils/validators/rgValidator'
+import { pastOrTodayDateValidator } from '../../../../../../shared/utils/validators/pastOrTodayDateValidator'
+import { emailValidator } from '../../../../../../shared/utils/validators/emailValidator'
+import { numberPhoneValidator } from '../../../../../../shared/utils/validators/numberPhoneValidator'
+import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormDadosRepresentante = () => {
   const { control } = useFormContext()
-
-  const TextFieldRefs = useRef({})
-
-  const getRefs = (nome) => {
-    if (!TextFieldRefs.current[nome]) {
-        TextFieldRefs.current[nome] = React.createRef()
-    }
-    return TextFieldRefs.current[nome]
-  }
 
   const currentDate = dayjs()
 
@@ -47,7 +43,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.nome")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeSocial"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.nomeSocial"))}
             />
           )}
         />
@@ -67,7 +63,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.nomeSocial")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.rg"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.rg"))}
             />
           )}
         />
@@ -78,6 +74,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'RG é obrigatório',
+            validate: rgValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -90,7 +87,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.rg")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.cpf"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.cpf"))}
             />
           )}
         />
@@ -115,7 +112,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.cpf")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.dataNascimento"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.dataNascimento"))}
             />
           )}
         />
@@ -126,6 +123,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'Data de nascimento é obrigatória',
+            validate: pastOrTodayDateValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -143,7 +141,7 @@ export const FormDadosRepresentante = () => {
                     error: !!error,
                     helperText: error?.message,
                     onKeyDown: (event) =>
-                      handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.nomeMaeRepresentante"]),
+                      handleEnterKeyPress(event, getRefValue("representante.dados.nomeMaeRepresentante")),
                   },
                 }}
               />
@@ -169,7 +167,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.nomeMaeRepresentante")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.ufEmissao"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.ufEmissao"))}
             />
           )}
         />
@@ -193,7 +191,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.ufEmissao")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.email"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.email"))}
             />
           )}
         />
@@ -204,6 +202,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'Email é obrigatório',
+            validate: emailValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -216,7 +215,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.email")}
-              onKeyDown={(event) => handleEnterKeyPress(event, TextFieldRefs.current["representante.dados.telefone"])}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.dados.telefone"))}
             />
           )}
         />
@@ -227,6 +226,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'Número de telefone é obrigatório',
+            validate: numberPhoneValidator
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -239,6 +239,7 @@ export const FormDadosRepresentante = () => {
               error={!!error}
               helperText={error?.message}
               inputRef={getRefs("representante.dados.telefone")}
+              onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("representante.endereco.cep"))}            
             />
           )}
         />
