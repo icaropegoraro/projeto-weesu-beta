@@ -5,7 +5,7 @@ export const numberPhoneValidator = (value)=> {
     const isValidLength = (cleaned.length === 12 || cleaned.length === 13)
 
     if (!isValidLength) {
-        return 'Telefone deve conter 10 ou 11 dígitos'
+        return 'Telefone deve conter 10 ou 11 dígitos numéricos'
     }
 
   return true

@@ -9,7 +9,7 @@ import axios from 'axios'
 import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
 
 export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
-    const { control, setValue } = useFormContext()
+    const { control, setValue, setError, clearErrors } = useFormContext()
 
     const TextFieldRefs = useRef({}) 
     
@@ -57,6 +57,14 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     if (!data.erro) {
                         setValue("empresa.endereco.uf", data.uf)
                         setValue("empresa.endereco.cidade", data.localidade)
+                        clearErrors("empresa.endereco.cep")
+                        return
+                    }
+                    if (data.erro === "true") {
+                        setError("empresa.endereco.cep", {
+                            type: "manual",
+                            message: "CEP não encontrado",
+                        })
                     }
                 } catch (error) {
                     console.error("Erro ao buscar CEP", error)
@@ -65,7 +73,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
         }
 
     buscarEnderecoPorCep()
-  }, [cep, setValue])
+  }, [cep, setValue, setError, clearErrors])
 
     return (
         <Grid container spacing={2}>

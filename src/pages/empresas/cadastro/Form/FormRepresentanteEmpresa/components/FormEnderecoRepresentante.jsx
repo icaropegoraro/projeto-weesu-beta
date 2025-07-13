@@ -8,7 +8,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
 
 export const FormEnderecoRepresentante = ({estados}) => {
-    const { control, setValue } = useFormContext()
+    const { control, setValue, setError, clearErrors } = useFormContext()
 
     const TextFieldRefs = useRef({})
     
@@ -56,6 +56,14 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     if (!data.erro) {
                         setValue("representante.endereco.uf", data.uf)
                         setValue("representante.endereco.cidade", data.localidade)
+                        clearErrors("representante.endereco.cep")
+                        return
+                    }
+                    if (data.erro === "true") {
+                        setError("representante.endereco.cep", {
+                            type: "manual",
+                            message: "CEP não encontrado",
+                        })
                     }
                 } catch (error) {
                     console.error("Erro ao buscar CEP", error)

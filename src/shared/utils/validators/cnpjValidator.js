@@ -1,7 +1,7 @@
 export const cnpjValidator = (value) => {
 
     const cleaned = value.replace(/\D/g, '')
-    if (cleaned.length !== 14) return 'CNPJ deve conter 14 dígitos'
+    if (cleaned.length !== 14) return 'CNPJ deve conter 14 dígitos numéricos'
 
     const calcCheckDigit = (cnpj, multipliers) => {
         const sum = cnpj
