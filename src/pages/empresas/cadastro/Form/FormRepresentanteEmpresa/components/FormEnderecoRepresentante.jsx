@@ -55,7 +55,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     if (data.erro === 'true') {
                         setError('representante.endereco.cep', {
                             type: 'manual',
-                            message: 'CEP não encontrado',
+                            message: 'CEP não encontrado'
                         })
                     }
                 } catch (error) {
@@ -187,7 +187,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     name='representante.endereco.uf'
                     control={control}
                     rules={{
-                        required: 'Estado é obrigatório',
+                        required: 'Estado é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -229,7 +229,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     name='representante.endereco.cidade'
                     control={control}
                     rules={{
-                        required: 'Cidade é obrigatório',
+                        required: 'Cidade é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField

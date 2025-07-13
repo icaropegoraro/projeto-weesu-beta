@@ -55,7 +55,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     if (data.erro === 'true') {
                         setError('empresa.endereco.cep', {
                             type: 'manual',
-                            message: 'CEP não encontrado',
+                            message: 'CEP não encontrado'
                         })
                     }
                 } catch (error) {
@@ -99,7 +99,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     name='empresa.endereco.street'
                     control={control}
                     rules={{
-                        required: 'Logradouro é obrigatório',
+                        required: 'Logradouro é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -123,7 +123,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     name='empresa.endereco.streetNumber'
                     control={control}
                     rules={{
-                        required: 'Número é obrigatório',
+                        required: 'Número é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -165,7 +165,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     name='empresa.endereco.bairro'
                     control={control}
                     rules={{
-                        required: 'Bairro é obrigatório',
+                        required: 'Bairro é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -189,7 +189,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     name='empresa.endereco.uf'
                     control={control}
                     rules={{
-                        required: 'Estado é obrigatório',
+                        required: 'Estado é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
@@ -231,7 +231,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     name='empresa.endereco.cidade'
                     control={control}
                     rules={{
-                        required: 'Cidade é obrigatório',
+                        required: 'Cidade é obrigatório'
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField

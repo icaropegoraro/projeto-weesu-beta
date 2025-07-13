@@ -60,7 +60,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.razaoSocial'
           control={control}
           rules={{
-            required: 'Razão social é obrigatório',
+            required: 'Razão social é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -85,7 +85,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.nomeFantasia'
           control={control}
           rules={{
-            required: 'Nome fantasia é obrigatório',
+            required: 'Nome fantasia é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -136,12 +136,11 @@ export const FormDadosEmpresa = () => {
                             onChange={changeIE}
                           />
                         }
-                      >
-                        
+                      >      
                       </FormControlLabel>
                     </InputAdornment>
-                  ),
-                },
+                  )
+                }
               }}
             />
               
@@ -206,7 +205,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.qtdClientes'
           control={control}
           rules={{
-            required: 'Quantidade de clientes é obrigatório',
+            required: 'Quantidade de clientes é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -231,7 +230,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.vencimento'
           control={control}
           rules={{
-            required: 'Vencimento é obrigatório',
+            required: 'Vencimento é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -282,8 +281,8 @@ export const FormDadosEmpresa = () => {
                     error: !!error,
                     helperText: error?.message,
                     onKeyDown: (event) =>
-                      handleEnterKeyPress(event, getRefValue('empresa.dados.cnae')),
-                  },
+                      handleEnterKeyPress(event, getRefValue('empresa.dados.cnae'))
+                  }
                 }}
               />
             </LocalizationProvider>
@@ -321,7 +320,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.faturamento'
           control={control}
           rules={{
-            required: 'Faturamento é obrigatório',
+            required: 'Faturamento é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -346,7 +345,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.tipoAtuacao'
           control={control}
           rules={{
-            required: 'Tipo de atuação é obrigatório',
+            required: 'Tipo de atuação é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -371,7 +370,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.regimeTributario'
           control={control}
           rules={{
-            required: 'Regime tributário é obrigatório',
+            required: 'Regime tributário é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -403,7 +402,7 @@ export const FormDadosEmpresa = () => {
           name='empresa.dados.formatoConstituicao'
           control={control}
           rules={{
-            required: 'Formato de constituição é obrigatório',
+            required: 'Formato de constituição é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField

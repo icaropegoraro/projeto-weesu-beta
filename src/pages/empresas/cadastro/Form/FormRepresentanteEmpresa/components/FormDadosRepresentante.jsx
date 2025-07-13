@@ -30,7 +30,7 @@ export const FormDadosRepresentante = () => {
           name='representante.dados.nome'
           control={control}
           rules={{
-            required: 'Nome completo é obrigatório',
+            required: 'Nome completo é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -141,8 +141,8 @@ export const FormDadosRepresentante = () => {
                     error: !!error,
                     helperText: error?.message,
                     onKeyDown: (event) =>
-                      handleEnterKeyPress(event, getRefValue('representante.dados.nomeMaeRepresentante')),
-                  },
+                      handleEnterKeyPress(event, getRefValue('representante.dados.nomeMaeRepresentante'))
+                  }
                 }}
               />
             </LocalizationProvider>
@@ -154,7 +154,7 @@ export const FormDadosRepresentante = () => {
           name='representante.dados.nomeMaeRepresentante'
           control={control}
           rules={{
-            required: 'Nome da mãe é obrigatório',
+            required: 'Nome da mãe é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -178,7 +178,7 @@ export const FormDadosRepresentante = () => {
           name='representante.dados.ufEmissao'
           control={control}
           rules={{
-            required: 'UF de emissão do documento é obrigatório',
+            required: 'UF de emissão do documento é obrigatório'
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
