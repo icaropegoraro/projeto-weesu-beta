@@ -14,7 +14,7 @@ export const cpfValidator = (value) => {
 
     const base = cleaned.slice(0, 9)
     const digit1 = calcCheckDigit(base, 10)
-    const digit2 = calcCheckDigit(base + digit1, 11);
+    const digit2 = calcCheckDigit(base + digit1, 11)
 
     if (
         digit1 !== parseInt(cleaned[9]) ||
