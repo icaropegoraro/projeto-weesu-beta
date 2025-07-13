@@ -1,8 +1,8 @@
 import { useForm, FormProvider } from 'react-hook-form'
-import { useState, useEffect } from "react"
-import { Button, Box, Stepper, StepButton, Step } from "@mui/material"
-import { FormRepresentante } from "./Form/FormRepresentanteEmpresa/FormRepresentante"
-import { FormEmpresa } from "./Form/FormEmpresa/FormEmpresa"
+import { useState, useEffect } from 'react'
+import { Button, Box, Stepper, StepButton, Step } from '@mui/material'
+import { FormRepresentante } from './Form/FormRepresentanteEmpresa/FormRepresentante'
+import { FormEmpresa } from './Form/FormEmpresa/FormEmpresa'
 import { Grid } from '@mui/system'
 import axios from 'axios'
 
@@ -16,7 +16,7 @@ export const CadastroEmpresa = () => {
   useEffect(() => {
     const fetchEstados = async () => {
       try {
-        const response = await axios.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados")
+        const response = await axios.get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
         const estadosOrdenados = response.data.sort((a, b) => a.nome.localeCompare(b.nome))
         setEstados(estadosOrdenados)
       } catch (error) {
@@ -43,7 +43,7 @@ export const CadastroEmpresa = () => {
   const isLastStep = (currentStep === steps.length - 1)
 
   const onSubmit = (data) => {
-    console.log("Dados enviados:", data)
+    console.log('Dados enviados:', data)
   }
 
   return (
@@ -67,7 +67,7 @@ export const CadastroEmpresa = () => {
 
         <Grid container size={{xs: 12}} justifyContent={'center'} spacing={2}> 
           <Button 
-            variant="outlined" 
+            variant='outlined' 
             onClick={returnStep} 
             disabled={isFirstStep}
           >
@@ -75,7 +75,7 @@ export const CadastroEmpresa = () => {
           </Button>
 
           <Button 
-            variant="outlined" 
+            variant='outlined'
             onClick={isLastStep ? methods.handleSubmit(onSubmit) : nextStep}
           >
             {isLastStep ? 'Finalizar' : 'Próximo'}

@@ -12,8 +12,8 @@ import { getRefs, getRefValue } from '../../../FormRefs'
 export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
     const { control, setValue, setError, clearErrors } = useFormContext()
 
-    const cep = useWatch({ control, name: "empresa.endereco.cep" })
-    const uf = useWatch({ control, name: "empresa.endereco.uf" })
+    const cep = useWatch({ control, name: 'empresa.endereco.cep' })
+    const uf = useWatch({ control, name: 'empresa.endereco.uf' })
 
     const [cidades, setCidades] = useState([])
     const cidadesCache = useRef({})
@@ -33,7 +33,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                 setCidades(cidadesFiltradas)
                 cidadesCache.current[uf] = response.data
             } catch (error) {
-                console.error("Erro ao buscar cidades do IBGE", error)
+                console.error('Erro ao buscar cidades do IBGE', error)
                 setCidades([])
             }
         }
@@ -42,24 +42,24 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
     useEffect(() => {
         const buscarEnderecoPorCep = async () => {
-            const cepLimpo = cep?.replace(/\D/g, "")
+            const cepLimpo = cep?.replace(/\D/g, '')
             if (cepLimpo?.length === 8) {
                 try {
                     const { data } = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`)
                     if (!data.erro) {
-                        setValue("empresa.endereco.uf", data.uf)
-                        setValue("empresa.endereco.cidade", data.localidade)
-                        clearErrors("empresa.endereco.cep")
+                        setValue('empresa.endereco.uf', data.uf)
+                        setValue('empresa.endereco.cidade', data.localidade)
+                        clearErrors('empresa.endereco.cep')
                         return
                     }
-                    if (data.erro === "true") {
-                        setError("empresa.endereco.cep", {
-                            type: "manual",
-                            message: "CEP não encontrado",
+                    if (data.erro === 'true') {
+                        setError('empresa.endereco.cep', {
+                            type: 'manual',
+                            message: 'CEP não encontrado',
                         })
                     }
                 } catch (error) {
-                    console.error("Erro ao buscar CEP", error)
+                    console.error('Erro ao buscar CEP', error)
                 }
             }
         }
@@ -71,7 +71,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
         <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
-                    name="empresa.endereco.cep"
+                    name='empresa.endereco.cep'
                     control={control}
                     rules={{
                         required: 'CEP é obrigatório',
@@ -79,16 +79,16 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
-                            label="CEP"
-                            name="cep"
+                            label='CEP'
+                            name='cep'
                             fullWidth
                             value={value || ''}
                             onChange={(event) => maskHandler(maskCEP)(event, onChange)}
                             onBlur={onBlur}
                             error={!!error}
                             helperText={error?.message}
-                            inputRef={getRefs("empresa.endereco.cep")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.street"))}
+                            inputRef={getRefs('empresa.endereco.cep')}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.street'))}
                         />
                     )}
                 />
@@ -96,23 +96,23 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
             <Grid size={{ xs: 12, md: 6 }}>
                 <Controller
-                    name="empresa.endereco.street"
+                    name='empresa.endereco.street'
                     control={control}
                     rules={{
                         required: 'Logradouro é obrigatório',
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
-                        label="Logradouro"
-                        name="street"
+                        label='Logradouro'
+                        name='street'
                         fullWidth
                         value={value || ''}
                         onChange={onChange}
                         onBlur={onBlur}
                         error={!!error}
                         helperText={error?.message}
-                        inputRef={getRefs("empresa.endereco.street")}
-                        onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.streetNumber"))}
+                        inputRef={getRefs('empresa.endereco.street')}
+                        onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.streetNumber'))}
                         />
                     )}
                 />
@@ -120,23 +120,23 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
             <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
-                    name="empresa.endereco.streetNumber"
+                    name='empresa.endereco.streetNumber'
                     control={control}
                     rules={{
                         required: 'Número é obrigatório',
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
-                            label="Número"
-                            name="streetNumber"
+                            label='Número'
+                            name='streetNumber'
                             fullWidth
                             value={value || ''}
                             onChange={(event) => maskHandler(maskOnlyNumbers, 4)(event, onChange)}
                             onBlur={onBlur}
                             error={!!error}
                             helperText={error?.message}
-                            inputRef={getRefs("empresa.endereco.streetNumber")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.complemento"))}
+                            inputRef={getRefs('empresa.endereco.streetNumber')}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.complemento'))}
                         />
                     )}
                 />
@@ -144,17 +144,17 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
             <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
-                    name="empresa.endereco.complemento"
+                    name='empresa.endereco.complemento'
                     control={control}
                     render={({ field: { onChange, value } }) => (
                         <TextField
-                            label="Complemento"
-                            name="complemento"
+                            label='Complemento'
+                            name='complemento'
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
-                            inputRef={getRefs("empresa.endereco.complemento")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.bairro"))}
+                            inputRef={getRefs('empresa.endereco.complemento')}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.bairro'))}
                         />
                     )}
                 />
@@ -162,23 +162,23 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
             <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
-                    name="empresa.endereco.bairro"
+                    name='empresa.endereco.bairro'
                     control={control}
                     rules={{
                         required: 'Bairro é obrigatório',
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
-                            label="Bairro"
-                            name="bairro"
+                            label='Bairro'
+                            name='bairro'
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
                             onBlur={onBlur}
                             error={!!error}
                             helperText={error?.message}
-                            inputRef={getRefs("empresa.endereco.bairro")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.uf"))}
+                            inputRef={getRefs('empresa.endereco.bairro')}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.uf'))}
                         />
                     )}
                 />
@@ -186,34 +186,34 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
             <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
-                    name="empresa.endereco.uf"
+                    name='empresa.endereco.uf'
                     control={control}
                     rules={{
                         required: 'Estado é obrigatório',
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
-                            label="Estado"
-                            name="uf"
+                            label='Estado'
+                            name='uf'
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
                             onBlur={onBlur}
                             error={!!error}
                             helperText={error?.message}
-                            inputRef={getRefs("empresa.endereco.uf")}
-                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue("empresa.endereco.cidade"))}
+                            inputRef={getRefs('empresa.endereco.uf')}
+                            onKeyDown={(event) => handleEnterKeyPress(event, getRefValue('empresa.endereco.cidade'))}
                             select
                             slotProps={{
                                 select: {
                                     MenuProps: {
                                         PaperProps: {
-                                        style: {
-                                            maxHeight: 150,
-                                        },
-                                        },
-                                    },
-                                },
+                                            style: {
+                                                maxHeight: 150
+                                            }
+                                        }
+                                    }
+                                }
                             }}
                         >
                             {estados.map((estado) => (
@@ -228,7 +228,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
 
             <Grid size={{ xs: 12, md: 3 }}>
                 <Controller
-                    name="empresa.endereco.cidade"
+                    name='empresa.endereco.cidade'
                     control={control}
                     rules={{
                         required: 'Cidade é obrigatório',
@@ -236,15 +236,15 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
                             disabled={!uf}
-                            label="Cidade"
-                            name="cidade"
+                            label='Cidade'
+                            name='cidade'
                             fullWidth
                             value={value || ''}
                             onChange={onChange}
                             onBlur={onBlur}
                             error={!!error}
                             helperText={error?.message}
-                            inputRef={getRefs("empresa.endereco.cidade")}
+                            inputRef={getRefs('empresa.endereco.cidade')}
                             onKeyDown={(event) => {
                                 if (event.key === 'Enter') {
                                 event.preventDefault()
@@ -256,12 +256,12 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                                 select: {
                                     MenuProps: {
                                         PaperProps: {
-                                        style: {
-                                            maxHeight: 150,
-                                        },
-                                        },
-                                    },
-                                },
+                                            style: {
+                                                maxHeight: 150,
+                                            }
+                                        }
+                                    }
+                                }
                             }}
                         >
                             {cidades.map((cidade) => (
