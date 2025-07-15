@@ -1,19 +1,24 @@
+// React Hook Form
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
+
+// MUI
+import { TextField, Grid, MenuItem, Checkbox, InputAdornment, FormControlLabel } from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { TextField, Grid, MenuItem, Checkbox, InputAdornment, FormControlLabel } from '@mui/material'
+
+// DayJS
+import dayjs from 'dayjs'
+
+// Utils
+import { cnpjValidator, emailValidator, numberPhoneValidator, pastOrTodayDateValidator, cnaeValidator } from '../../../../../../shared/utils/validators'
 import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
-import { useState }  from 'react'
-import dayjs from 'dayjs'
-import { vencimento, regimeTributario, formatoConstituicao } from '../../../../../../shared/components/formDataOptions'
-import { cnpjValidator } from '../../../../../../shared/utils/validators/cnpjValidator'
-import { emailValidator } from '../../../../../../shared/utils/validators/emailValidator'
-import { numberPhoneValidator } from '../../../../../../shared/utils/validators/numberPhoneValidator'
-import { pastOrTodayDateValidator } from '../../../../../../shared/utils/validators/pastOrTodayDateValidator'
-import { cnaeValidator } from '../../../../../../shared/utils/validators/cnaeValidator'
-import { getRefs, getRefValue } from '../../../FormRefs'
 
+// Form Options
+import { vencimento, regimeTributario, formatoConstituicao } from '../../../../../../shared/components/formDataOptions'
+
+// Form Refs
+import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormDadosEmpresa = () => {
   const { control } = useFormContext()
