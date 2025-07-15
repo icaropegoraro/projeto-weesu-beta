@@ -1,12 +1,21 @@
+// React 
+import { useRef, useState, useEffect } from 'react'
+
+// React Hook Form
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
+
+// MUI
 import { TextField, Grid, MenuItem } from '@mui/material'
-import { maskHandler } from '../../../../../../shared/utils/masks/maskHandler'
-import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
-import React, { useRef, useState, useEffect } from 'react'
-import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
-import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
-import axios from 'axios'
+
+// Utils
+import { maskHandler, maskCEP, maskOnlyNumbers } from '../../../../../../shared/utils/masks/'
 import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
+import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
+
+// axios
+import axios from 'axios'
+
+// Form Refs
 import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
