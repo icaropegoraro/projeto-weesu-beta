@@ -4,6 +4,9 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 // Form
 import { CadastroEmpresa } from '../pages/empresas/cadastro/CadastroEmpresa'
 
+// Login 
+import { Login } from '../pages/login/Login'
+
 function AppRoutes() {
   return (
     <Routes>
@@ -14,8 +17,13 @@ function AppRoutes() {
       />
 
       <Route
+        path='/login'
+        element={<Login/>}
+      />
+
+      <Route
         path='*'
-        element={<Navigate to='/formulario' />}
+        element={<Navigate to='/login' />}
       />
     </Routes>
   )
