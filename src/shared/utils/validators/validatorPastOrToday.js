@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-export const pastOrTodayDateValidator = (value) => {
+export const validatorPastOrToday = (value) => {
 
     const date = dayjs(value)
     if (!date.isValid()) return 'Data inválida'

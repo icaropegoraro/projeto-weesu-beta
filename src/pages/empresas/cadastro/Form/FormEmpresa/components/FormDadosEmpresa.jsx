@@ -10,7 +10,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import dayjs from 'dayjs'
 
 // Utils
-import { cnpjValidator, emailValidator, numberPhoneValidator, pastOrTodayDateValidator, cnaeValidator } from '../../../../../../shared/utils/validators'
+import { validatorCNPJ, validatorEmail, validatorNumberPhone, validatorPastOrToday, validatorCNAE } from '../../../../../../shared/utils/validators'
 import { maskCNPJ, maskHandler, maskNumberPhone, maskCNAE, maskMoney, maskOnlyNumbers } from '../../../../../../shared/utils/masks'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 
@@ -35,7 +35,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'CNPJ é obrigatório',
-            validate: cnpjValidator
+            validate: validatorCNPJ
             }
           }
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
@@ -161,7 +161,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'Email da empresa é obrigatório',
-            validate: emailValidator
+            validate: validatorEmail
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -187,7 +187,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'Número de telefone é obrigatório',
-            validate: numberPhoneValidator
+            validate: validatorNumberPhone
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -270,7 +270,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'Data de abertura é obrigatório',
-            validate: pastOrTodayDateValidator
+            validate: validatorPastOrToday
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -303,7 +303,7 @@ export const FormDadosEmpresa = () => {
           control={control}
           rules={{
             required: 'CNAE é obrigatório',
-            validate: cnaeValidator
+            validate: validatorCNAE
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField

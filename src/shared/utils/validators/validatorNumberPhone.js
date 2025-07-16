@@ -1,4 +1,4 @@
-export const numberPhoneValidator = (value)=> {
+export const validatorNumberPhone = (value)=> {
 
     const cleaned = value.replace(/\D/g, '')
 

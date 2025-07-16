@@ -1,4 +1,4 @@
-export const cpfValidator = (value) => {
+export const validatorCPF = (value) => {
     const cleaned = value.replace(/\D/g, '')
     if (cleaned.length !== 11) return 'CPF deve conter 11 dígitos'
 

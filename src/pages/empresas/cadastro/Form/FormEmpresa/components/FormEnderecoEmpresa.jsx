@@ -9,7 +9,7 @@ import { TextField, Grid, MenuItem } from '@mui/material'
 
 // Utils
 import { maskHandler, maskCEP, maskOnlyNumbers } from '../../../../../../shared/utils/masks/'
-import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
+import { validatorCEP } from '../../../../../../shared/utils/validators/validatorCEP'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
 
 // axios
@@ -84,7 +84,7 @@ export const FormEnderecoEmpresa = ({ estados, onNextStep }) => {
                     control={control}
                     rules={{
                         required: 'CEP é obrigatório',
-                        validate: cepValidator
+                        validate: validatorCEP
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField

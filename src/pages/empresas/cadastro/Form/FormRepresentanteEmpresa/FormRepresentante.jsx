@@ -1,4 +1,7 @@
+// MUI
 import { Grid, Typography } from '@mui/material'
+
+// Forms
 import { FormDadosRepresentante } from './components/FormDadosRepresentante'
 import { FormEnderecoRepresentante } from './components/FormEnderecoRepresentante'
 

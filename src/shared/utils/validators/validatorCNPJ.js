@@ -1,4 +1,4 @@
-export const cnpjValidator = (value) => {
+export const validatorCNPJ = (value) => {
 
     const cleaned = value.replace(/\D/g, '')
     if (cleaned.length !== 14) return 'CNPJ deve conter 14 dígitos numéricos'

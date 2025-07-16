@@ -1,20 +1,20 @@
+// React Hook Form
 import { useFormContext, Controller } from 'react-hook-form'
+
+// MUI
 import { TextField, Grid } from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
-import { maskHandler } from '../../../../../../shared/utils/masks/maskHandler'
-import { maskCPF } from '../../../../../../shared/utils/masks/maskCPF'
-import { maskRG } from '../../../../../../shared/utils/masks/maskRG'
-import { maskNumberPhone } from '../../../../../../shared/utils/masks/maskNumberPhone'
-import React, { useRef } from 'react'
+
+// Utils
+import { maskHandler, maskCPF, maskRG, maskNumberPhone, maskOnlyLetters  } from '../../../../../../shared/utils/masks/'
+import { validatorCPF, validatorRG, validatorPastOrToday, validatorEmail, validatorNumberPhone } from '../../../../../../shared/utils/validators/'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
+
+// DayJS
 import dayjs from 'dayjs'
-import { maskOnlyLetters } from '../../../../../../shared/utils/masks/maskOnlyLetters'
-import { cpfValidator } from '../../../../../../shared/utils/validators/cpfValidator'
-import { rgValidator } from '../../../../../../shared/utils/validators/rgValidator'
-import { pastOrTodayDateValidator } from '../../../../../../shared/utils/validators/pastOrTodayDateValidator'
-import { emailValidator } from '../../../../../../shared/utils/validators/emailValidator'
-import { numberPhoneValidator } from '../../../../../../shared/utils/validators/numberPhoneValidator'
+
+// Form Refs
 import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormDadosRepresentante = () => {
@@ -74,7 +74,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'RG é obrigatório',
-            validate: rgValidator
+            validate: validatorRG
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -99,7 +99,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'CPF é obrigatório',
-            validate: cpfValidator
+            validate: validatorCPF
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -123,7 +123,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'Data de nascimento é obrigatória',
-            validate: pastOrTodayDateValidator
+            validate: validatorPastOrToday
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -202,7 +202,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'Email é obrigatório',
-            validate: emailValidator
+            validate: validatorEmail
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField
@@ -226,7 +226,7 @@ export const FormDadosRepresentante = () => {
           control={control}
           rules={{
             required: 'Número de telefone é obrigatório',
-            validate: numberPhoneValidator
+            validate: validatorNumberPhone
           }}
           render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
             <TextField

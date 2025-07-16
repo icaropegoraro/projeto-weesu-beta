@@ -1,12 +1,21 @@
+// React
+import { useRef, useState, useEffect } from 'react'
+
+// React Hook Form
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
+
+// MUI
 import { TextField, Grid, MenuItem } from '@mui/material'
-import { maskHandler } from '../../../../../../shared/utils/masks/maskHandler'
-import { maskCEP } from '../../../../../../shared/utils/masks/maskCEP'
-import { maskOnlyNumbers } from '../../../../../../shared/utils/masks/maskOnlyNumbers'
+
+// Utils
+import { maskHandler, maskCEP, maskOnlyNumbers } from '../../../../../../shared/utils/masks/'
 import { handleEnterKeyPress } from '../../../../../../shared/hooks/handleEnterKeyPress'
-import React, { useRef, useState, useEffect } from 'react'
+import { validatorCEP } from '../../../../../../shared/utils/validators/'
+
+// axios
 import axios from 'axios'
-import { cepValidator } from '../../../../../../shared/utils/validators/cepValidator'
+
+// Form Refs
 import { getRefs, getRefValue } from '../../../FormRefs'
 
 export const FormEnderecoRepresentante = ({estados}) => {
@@ -75,7 +84,7 @@ export const FormEnderecoRepresentante = ({estados}) => {
                     control={control}
                     rules={{
                         required: 'CEP é obrigatório',
-                        validate: cepValidator
+                        validate: validatorCEP
                     }}
                     render={({ field: { onChange, onBlur, value }, fieldState: { error } }) => (
                         <TextField
