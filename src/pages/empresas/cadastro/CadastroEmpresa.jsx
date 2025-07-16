@@ -1,9 +1,17 @@
-import { useForm, FormProvider } from 'react-hook-form'
+// React
 import { useState, useEffect } from 'react'
-import { Button, Box, Stepper, StepButton, Step } from '@mui/material'
+
+// React Hook Form
+import { useForm, FormProvider } from 'react-hook-form'
+
+// MUI
+import { Grid, Button, Stepper, StepButton, Step } from '@mui/material'
+
+// Forms
 import { FormRepresentante } from './Form/FormRepresentanteEmpresa/FormRepresentante'
 import { FormEmpresa } from './Form/FormEmpresa/FormEmpresa'
-import { Grid } from '@mui/system'
+
+// axios
 import axios from 'axios'
 
 export const CadastroEmpresa = () => {
